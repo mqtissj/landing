@@ -1,6 +1,7 @@
 {
-  "buildCommand": "cd landing && bun run build",
-  "outputDirectory": "landing/dist",
+  "rootDirectory": "landing",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "rewrites": [
     {
       "source": "/(.*)",
