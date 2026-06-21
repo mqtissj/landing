@@ -1,0 +1,279 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Work+Sans:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Paper & Ink + vivid accents */
+    --background: 44 45% 95%;           /* warm paper */
+    --foreground: 0 0% 8%;               /* ink */
+
+    --card: 44 35% 92%;
+    --card-foreground: 0 0% 8%;
+
+    --popover: 44 45% 95%;
+    --popover-foreground: 0 0% 8%;
+
+    --primary: 0 0% 8%;
+    --primary-foreground: 44 45% 95%;
+
+    --secondary: 42 30% 88%;
+    --secondary-foreground: 0 0% 18%;
+
+    --muted: 42 30% 88%;
+    --muted-foreground: 0 0% 30%;
+
+    --accent: 0 0% 18%;
+    --accent-foreground: 44 45% 95%;
+
+    --destructive: 8 85% 55%;
+    --destructive-foreground: 44 45% 95%;
+
+    --border: 38 15% 78%;
+    --input: 38 15% 78%;
+    --ring: 0 0% 18%;
+
+    --radius: 0.25rem;
+
+    /* Editorial palette — single restrained accent (deep ink-blue) + warm neutrals */
+    --pop-yellow: 42 22% 84%;            /* warm bone (was vivid yellow) */
+    --pop-coral:  20 30% 70%;            /* dusty terracotta, very muted */
+    --pop-cobalt: 222 47% 22%;           /* deep ink blue — the one accent */
+    --pop-mint:   180 12% 55%;           /* slate teal, near-neutral */
+    --pop-lilac:  0 0% 35%;              /* graphite */
+
+    --shadow-paper: 0 1px 2px hsl(0 0% 0% / 0.04), 0 8px 24px -12px hsl(0 0% 0% / 0.08);
+    --shadow-card: 0 2px 4px hsl(0 0% 0% / 0.04), 0 12px 32px -16px hsl(0 0% 0% / 0.12);
+    --shadow-pop: 4px 4px 0 0 hsl(0 0% 8%);
+  }
+
+  .dark {
+    --background: 0 0% 8%;
+    --foreground: 44 45% 95%;
+    --card: 0 0% 11%;
+    --card-foreground: 44 45% 95%;
+    --popover: 0 0% 11%;
+    --popover-foreground: 44 45% 95%;
+    --primary: 44 45% 95%;
+    --primary-foreground: 0 0% 8%;
+    --secondary: 0 0% 14%;
+    --secondary-foreground: 44 45% 95%;
+    --muted: 0 0% 14%;
+    --muted-foreground: 0 0% 65%;
+    --accent: 44 45% 95%;
+    --accent-foreground: 0 0% 8%;
+    --border: 0 0% 22%;
+    --input: 0 0% 22%;
+    --ring: 44 45% 95%;
+
+    /* Dark-mode editorial palette — slightly brighter so the single accent reads */
+    --pop-yellow: 42 18% 22%;            /* deep bone surface */
+    --pop-coral:  20 24% 32%;            /* muted terracotta */
+    --pop-cobalt: 215 70% 68%;           /* luminous ink-blue */
+    --pop-mint:   180 10% 38%;           /* slate */
+    --pop-lilac:  0 0% 70%;              /* light graphite */
+
+    --shadow-pop: 4px 4px 0 0 hsl(44 45% 95%);
+  }
+}
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: "ss01", "ss02", "kern", "liga", "calt";
+    font-size: 16.5px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  ::selection {
+    background: hsl(var(--foreground));
+    color: hsl(var(--background));
+  }
+}
+
+@layer utilities {
+  .font-serif {
+    font-family: 'Fraunces', 'Instrument Serif', 'Times New Roman', serif;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    font-variation-settings: "opsz" 96, "SOFT" 50;
+  }
+
+  .serif-italic {
+    font-family: 'Fraunces', 'Instrument Serif', serif;
+    font-style: italic;
+    font-variation-settings: "opsz" 144, "SOFT" 100;
+  }
+
+  .text-display {
+    font-family: 'Fraunces', 'Instrument Serif', serif;
+    font-weight: 400;
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+    font-variation-settings: "opsz" 144, "SOFT" 30;
+  }
+
+  /* Editorial hierarchy */
+  .t-eyebrow {
+    font-family: 'Inter', 'Work Sans', sans-serif;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: hsl(var(--foreground) / 0.55);
+  }
+  .t-h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(2rem, 4.2vw, 3.4rem);
+    line-height: 1.02;
+    letter-spacing: -0.03em;
+    font-variation-settings: "opsz" 120;
+  }
+  .t-lead {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(1.15rem, 1.6vw, 1.4rem);
+    line-height: 1.45;
+    letter-spacing: -0.012em;
+    color: hsl(var(--foreground) / 0.82);
+  }
+  .t-body {
+    font-family: 'Inter', 'Work Sans', sans-serif;
+    font-size: 15.5px;
+    line-height: 1.7;
+    color: hsl(var(--foreground) / 0.78);
+  }
+  .drop-cap::first-letter {
+    font-family: 'Fraunces', 'Instrument Serif', serif;
+    font-weight: 500;
+    font-size: 4.2em;
+    line-height: 0.85;
+    float: left;
+    padding: 0.05em 0.14em 0 0;
+  }
+
+  .shadow-paper { box-shadow: var(--shadow-paper); }
+  .shadow-card { box-shadow: var(--shadow-card); }
+  .shadow-pop { box-shadow: var(--shadow-pop); }
+
+  .grain {
+    position: relative;
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .rule { border-top: 1px solid hsl(var(--foreground)); }
+
+  .hover-underline {
+    background-image: linear-gradient(hsl(var(--foreground)), hsl(var(--foreground)));
+    background-size: 0% 1px;
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    transition: background-size 0.4s ease;
+  }
+  .hover-underline:hover { background-size: 100% 1px; }
+
+  /* Vivid pop helpers */
+  .bg-pop-yellow { background-color: hsl(var(--pop-yellow)); }
+  .bg-pop-coral  { background-color: hsl(var(--pop-coral)); }
+  .bg-pop-cobalt { background-color: hsl(var(--pop-cobalt)); }
+  .bg-pop-mint   { background-color: hsl(var(--pop-mint)); }
+  .bg-pop-lilac  { background-color: hsl(var(--pop-lilac)); }
+  .text-pop-yellow { color: hsl(var(--pop-yellow)); }
+  .text-pop-coral  { color: hsl(var(--pop-coral)); }
+  .text-pop-cobalt { color: hsl(var(--pop-cobalt)); }
+  .text-pop-mint   { color: hsl(var(--pop-mint)); }
+  .border-pop-cobalt { border-color: hsl(var(--pop-cobalt)); }
+
+  /* Subtle highlighter — only the cobalt one shows real color, others are restrained */
+  .marker-yellow {
+    background-image: linear-gradient(120deg, hsl(var(--pop-yellow) / 0.7) 0%, hsl(var(--pop-yellow) / 0.7) 100%);
+    background-repeat: no-repeat;
+    background-size: 100% 32%;
+    background-position: 0 92%;
+    padding: 0 .08em;
+  }
+  .marker-coral {
+    background-image: linear-gradient(120deg, hsl(var(--foreground) / 0.08) 0%, hsl(var(--foreground) / 0.08) 100%);
+    background-repeat: no-repeat;
+    background-size: 100% 32%;
+    background-position: 0 92%;
+    padding: 0 .08em;
+  }
+  .marker-mint {
+    background-image: linear-gradient(120deg, hsl(var(--pop-cobalt) / 0.14) 0%, hsl(var(--pop-cobalt) / 0.14) 100%);
+    background-repeat: no-repeat;
+    background-size: 100% 32%;
+    background-position: 0 92%;
+    padding: 0 .08em;
+  }
+
+  /* Sticker with hand-drawn rotation */
+  .sticker {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    padding: .35rem .7rem;
+    border: 1.5px solid hsl(var(--foreground));
+    background: hsl(var(--pop-yellow));
+    box-shadow: 3px 3px 0 0 hsl(var(--foreground));
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+
+  .btn-pop {
+    border: 1.5px solid hsl(var(--foreground));
+    box-shadow: 4px 4px 0 0 hsl(var(--foreground));
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-pop:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 0 hsl(var(--foreground));
+  }
+  .btn-pop:active {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 0 hsl(var(--foreground));
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .animate-marquee { animation: marquee 28s linear infinite; }
+
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(-3deg); }
+    50% { transform: rotate(3deg); }
+  }
+  .animate-wiggle { animation: wiggle 3s ease-in-out infinite; }
+
+  @keyframes spin-slow {
+    to { transform: rotate(360deg); }
+  }
+  .animate-spin-slow { animation: spin-slow 18s linear infinite; }
+}
+
