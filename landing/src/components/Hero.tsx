@@ -3,11 +3,6 @@ import { Download, ArrowUpRight, Sparkles, Star } from "lucide-react";
 import { personalInfo } from "@/data/projects";
 import profilePhoto from "@/assets/profile-photo.jpeg";
 
-const marqueeItems = [
-  "Java", "Spring Boot", "C#", ".NET", "PostgreSQL", "REST APIs",
-  "Clean Code", "Patrones de Diseño", "Cloud", "SQL Server", "Git", "Backend",
-];
-
 const charVariant = {
   hidden: { opacity: 0, y: 18 },
   visible: (i: number) => ({
@@ -202,23 +197,6 @@ export const Hero = () => {
           </motion.figure>
         </div>
       </div>
-
-      {/* Color marquee */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.3, duration: 0.8 }}
-        className="mt-16 border-y-2 border-foreground bg-foreground text-background overflow-hidden"
-      >
-        <div className="flex animate-marquee whitespace-nowrap py-3">
-          {[...marqueeItems, ...marqueeItems].map((item, i) => (
-            <span key={i} className="flex items-center gap-6 px-6 text-sm uppercase tracking-[0.25em] font-medium">
-              <Star size={14} className="text-pop-yellow fill-pop-yellow" />
-              {item}
-            </span>
-          ))}
-        </div>
-      </motion.div>
 
     </section>
   );
