@@ -1,0 +1,10 @@
+{
+  "buildCommand": "cd landing && bun run build",
+  "outputDirectory": "landing/dist",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
