@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowDown, Download, ArrowUpRight, Sparkles, Star } from "lucide-react";
+import { Download, ArrowUpRight, Sparkles, Star } from "lucide-react";
 import { personalInfo } from "@/data/projects";
 import profilePhoto from "@/assets/profile-photo.jpeg";
 
@@ -220,14 +220,6 @@ export const Hero = () => {
         </div>
       </motion.div>
 
-      <div className="container mx-auto px-6 lg:px-12 mt-6 flex items-center justify-between text-xs uppercase tracking-[0.25em] text-foreground/70">
-        <a href="#sobre-mi" className="flex items-center gap-2 hover:text-foreground transition">
-          <ArrowDown size={14} className="animate-bounce" />
-          Continuá la lectura
-        </a>
-        <span className="hidden sm:inline font-mono">{personalInfo.email}</span>
-        <span className="font-mono">P. 01 / 04</span>
-      </div>
     </section>
   );
 };
