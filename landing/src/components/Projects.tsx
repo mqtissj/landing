@@ -1,7 +1,40 @@
-import { useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { ExternalLink, Github, X, ArrowUpRight } from "lucide-react";
 import { projects, Project, personalInfo } from "@/data/projects";
+
+const accents = ["bg-pop-yellow", "bg-pop-coral", "bg-pop-cobalt", "bg-pop-mint", "bg-pop-lilac"];
+const accentColors: Record<string, string> = {
+  "bg-pop-yellow": "hsl(42,22%,84%)",
+  "bg-pop-coral": "hsl(20,30%,70%)",
+  "bg-pop-cobalt": "hsl(222,47%,22%)",
+  "bg-pop-mint": "hsl(180,12%,55%)",
+  "bg-pop-lilac": "hsl(0,0%,35%)",
+};
+
+function useTiltedCard() {
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
+
+  const onMove = (e: React.MouseEvent<HTMLElement>) => {
+    const el = ref.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    el.style.transform = `perspective(900px) rotateY(${x * 7}deg) rotateX(${-y * 7}deg)`;
+    el.style.transition = "transform 0.08s ease";
+  };
+
+  const onLeave = () => {
+    const el = ref.current;
+    if (!el) return;
+    el.style.transform = "perspective(900px) rotateY(0deg) rotateX(0deg)";
+    el.style.transition = "transform 0.5s ease";
+  };
+
+  return { ref, isInView, onMove, onLeave };
+}
 
 const ProjectRow = ({
   project,
@@ -14,17 +47,16 @@ const ProjectRow = ({
   featured?: boolean;
   onClick: () => void;
 }) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const { ref, isInView, onMove, onLeave } = useTiltedCard();
 
-  const accents = ["bg-pop-yellow", "bg-pop-coral", "bg-pop-cobalt", "bg-pop-mint", "bg-pop-lilac"];
   const accent = accents[index % accents.length];
-  const textOn = accent === "bg-pop-cobalt" || accent === "bg-pop-coral" ? "text-background" : "text-foreground";
+  const accentHex = accentColors[accent] ?? "transparent";
+  const textOn = accent === "bg-pop-cobalt" ? "text-background" : "text-foreground";
 
   if (featured) {
     return (
       <motion.article
-        ref={ref}
+        ref={ref as React.RefObject<HTMLElement>}
         initial={{ opacity: 0, y: 40 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8 }}
@@ -38,6 +70,11 @@ const ProjectRow = ({
               src={project.image}
               alt={project.title}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+            {/* Colour overlay on hover */}
+            <div
+              className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500 mix-blend-multiply"
+              style={{ backgroundColor: accentHex }}
             />
           </div>
         </div>
@@ -74,12 +111,15 @@ const ProjectRow = ({
 
   return (
     <motion.article
-      ref={ref}
+      ref={ref as React.RefObject<HTMLElement>}
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: (index % 3) * 0.1 }}
       onClick={onClick}
-      className="group cursor-pointer flex flex-col"
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      className="group cursor-pointer flex flex-col will-change-transform"
+      style={{ transformStyle: "preserve-3d" }}
     >
       <div className="relative mb-4">
         <div className={`absolute -top-2 -left-2 w-full h-full ${accent} border-2 border-foreground transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1`} />
@@ -88,6 +128,11 @@ const ProjectRow = ({
             src={project.image}
             alt={project.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+          />
+          {/* Colour overlay on hover */}
+          <div
+            className="absolute inset-0 opacity-0 group-hover:opacity-25 transition-opacity duration-500 mix-blend-multiply"
+            style={{ backgroundColor: accentHex }}
           />
         </div>
       </div>
@@ -110,7 +155,6 @@ const ProjectRow = ({
     </motion.article>
   );
 };
-
 
 const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => void }) => (
   <motion.div
@@ -139,16 +183,13 @@ const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => v
         <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
       </div>
 
-
       <div className="p-8 sm:p-12">
         <div className="flex items-center gap-3 mb-4 text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
           <span className="font-mono">{project.category}</span>
           <span className="w-8 h-px bg-foreground" />
           <span>Artículo extendido</span>
         </div>
-        <h2 className="text-display text-5xl sm:text-6xl mb-8">
-          {project.title}
-        </h2>
+        <h2 className="text-display text-5xl sm:text-6xl mb-8">{project.title}</h2>
 
         <p className="font-serif text-2xl leading-snug mb-10 text-foreground/85 border-l-2 border-foreground pl-6">
           {project.fullDescription}
@@ -206,7 +247,7 @@ export const Projects = () => {
         <div className="flex items-end justify-between border-b-2 border-foreground pb-4 mb-16">
           <div>
             <p className="text-[10px] uppercase tracking-[0.3em] mb-2">
-              <span className="bg-pop-coral text-background px-2 py-0.5 border border-foreground">Capítulo 03</span>
+              <span className="bg-pop-coral text-foreground px-2 py-0.5 border border-foreground">Capítulo 03</span>
             </p>
             <h2 className="text-display text-5xl sm:text-6xl md:text-7xl mt-3">
               La <em className="marker-coral">obra</em>
@@ -215,8 +256,6 @@ export const Projects = () => {
           <span className="hidden md:block font-mono text-xs text-foreground/60">P. 03 / 04</span>
         </div>
 
-
-        {/* Magazine layout: featured + grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
           <ProjectRow project={featured} index={0} featured onClick={() => setSelected(featured)} />
           {rest.map((p, i) => (
@@ -237,7 +276,6 @@ export const Projects = () => {
             <ExternalLink size={14} />
           </a>
         </div>
-
 
         <AnimatePresence>
           {selected && <ProjectModal project={selected} onClose={() => setSelected(null)} />}

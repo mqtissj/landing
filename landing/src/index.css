@@ -50,32 +50,32 @@
   }
 
   .dark {
-    --background: 0 0% 8%;
-    --foreground: 44 45% 95%;
-    --card: 0 0% 11%;
-    --card-foreground: 44 45% 95%;
-    --popover: 0 0% 11%;
-    --popover-foreground: 44 45% 95%;
-    --primary: 44 45% 95%;
-    --primary-foreground: 0 0% 8%;
-    --secondary: 0 0% 14%;
-    --secondary-foreground: 44 45% 95%;
-    --muted: 0 0% 14%;
-    --muted-foreground: 0 0% 65%;
-    --accent: 44 45% 95%;
-    --accent-foreground: 0 0% 8%;
-    --border: 0 0% 22%;
-    --input: 0 0% 22%;
-    --ring: 44 45% 95%;
+    --background: 0 0% 4%;
+    --foreground: 44 40% 93%;
+    --card: 0 0% 7%;
+    --card-foreground: 44 40% 93%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 44 40% 93%;
+    --primary: 44 40% 93%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 0 0% 10%;
+    --secondary-foreground: 44 40% 93%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 44 40% 93%;
+    --accent-foreground: 0 0% 4%;
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 44 40% 93%;
 
-    /* Dark-mode editorial palette — slightly brighter so the single accent reads */
-    --pop-yellow: 42 18% 22%;            /* deep bone surface */
-    --pop-coral:  20 24% 32%;            /* muted terracotta */
-    --pop-cobalt: 215 70% 68%;           /* luminous ink-blue */
-    --pop-mint:   180 10% 38%;           /* slate */
-    --pop-lilac:  0 0% 70%;              /* light graphite */
+    /* Dark-mode: deep blacks with electric cobalt as the sole light source */
+    --pop-yellow: 42 15% 18%;            /* near-black warm surface */
+    --pop-coral:  20 22% 28%;            /* dark terracotta */
+    --pop-cobalt: 217 82% 68%;           /* electric blue — glows */
+    --pop-mint:   180 10% 32%;           /* deep slate */
+    --pop-lilac:  0 0% 62%;              /* silver graphite */
 
-    --shadow-pop: 4px 4px 0 0 hsl(44 45% 95%);
+    --shadow-pop: 4px 4px 0 0 hsl(44 40% 93%);
   }
 }
 
@@ -102,6 +102,12 @@
     background: hsl(var(--foreground));
     color: hsl(var(--background));
   }
+}
+
+/* ─── Custom cursor ──────────────────────────────────────── */
+.custom-cursor,
+.custom-cursor * {
+  cursor: none !important;
 }
 
 @layer utilities {
@@ -275,5 +281,60 @@
     to { transform: rotate(360deg); }
   }
   .animate-spin-slow { animation: spin-slow 18s linear infinite; }
+
+  /* Hero dot-grid — only visible in dark mode */
+  .hero-bg-grid {
+    background-image: radial-gradient(
+      circle,
+      hsl(var(--foreground) / 0.07) 1px,
+      transparent 1px
+    );
+    background-size: 30px 30px;
+  }
+  .dark .hero-bg-grid {
+    background-image: radial-gradient(
+      circle,
+      hsl(217 82% 68% / 0.08) 1px,
+      transparent 1px
+    );
+  }
+
+  /* Cobalt glow — applied to specific elements in dark mode */
+  .dark .glow-cobalt {
+    box-shadow: 0 0 28px hsl(217 82% 68% / 0.22), var(--shadow-pop, none);
+  }
+  .dark .btn-pop.bg-pop-cobalt {
+    box-shadow: 4px 4px 0 0 hsl(44 40% 93%), 0 0 22px hsl(217 82% 68% / 0.3);
+  }
+  .dark .btn-pop.bg-pop-cobalt:hover {
+    box-shadow: 6px 6px 0 0 hsl(44 40% 93%), 0 0 28px hsl(217 82% 68% / 0.4);
+  }
+
+  /* Text gradient utility */
+  .text-gradient-cobalt {
+    background: linear-gradient(135deg, hsl(var(--pop-cobalt)), hsl(217 82% 80%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Timeline vertical line */
+  .timeline-line {
+    position: relative;
+  }
+  .timeline-line::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, hsl(var(--foreground) / 0.4), transparent);
+  }
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
 }
 

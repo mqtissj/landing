@@ -8,17 +8,52 @@ const marqueeItems = [
   "Clean Code", "Patrones de Diseño", "Cloud", "SQL Server", "Git", "Backend",
 ];
 
+const charVariant = {
+  hidden: { opacity: 0, y: 18 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.48, delay: i * 0.04, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
+
+const AnimatedWord = ({
+  text,
+  baseDelay,
+  className,
+}: {
+  text: string;
+  baseDelay: number;
+  className?: string;
+}) => (
+  <span className={className} aria-label={text}>
+    {text.split("").map((char, i) => (
+      <motion.span
+        key={i}
+        custom={baseDelay / 0.04 + i}
+        variants={charVariant}
+        initial="hidden"
+        animate="visible"
+        style={{ display: "inline-block" }}
+        aria-hidden="true"
+      >
+        {char}
+      </motion.span>
+    ))}
+  </span>
+);
+
 export const Hero = () => {
   return (
     <section
       id="inicio"
-      className="relative min-h-screen pt-32 pb-12 overflow-hidden grain"
+      className="relative min-h-screen pt-32 pb-12 overflow-hidden grain hero-bg-grid"
     >
       {/* Color blobs background */}
       <div aria-hidden className="absolute inset-0 -z-10 pointer-events-none">
         <div className="absolute top-24 -left-24 w-[28rem] h-[28rem] rounded-full bg-pop-yellow/40 blur-3xl" />
-        <div className="absolute top-40 right-0 w-[24rem] h-[24rem] rounded-full bg-pop-cobalt/25 blur-3xl" />
-        <div className="absolute bottom-10 left-1/3 w-[22rem] h-[22rem] rounded-full bg-pop-coral/30 blur-3xl" />
+        <div className="absolute top-40 right-0 w-[24rem] h-[24rem] rounded-full bg-pop-cobalt/20 blur-3xl" />
+        <div className="absolute bottom-10 left-1/3 w-[22rem] h-[22rem] rounded-full bg-pop-coral/25 blur-3xl" />
       </div>
 
       <div className="container mx-auto px-6 lg:px-12">
@@ -59,24 +94,37 @@ export const Hero = () => {
                 <span className="marker-yellow">Backend</span> · APIs · Arquitectura
               </p>
             </div>
-            <div className="bg-pop-cobalt text-background p-4 border-2 border-foreground shadow-pop">
+            <div className="bg-pop-cobalt text-background p-4 border-2 border-foreground shadow-pop glow-cobalt">
               <p className="text-[10px] uppercase tracking-[0.25em] opacity-80 mb-1">Stack principal</p>
               <p className="font-mono text-xs leading-relaxed">Java · Spring Boot<br/>C# · .NET · SQL</p>
             </div>
           </motion.aside>
 
           {/* Headline */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.1 }}
-            className="lg:col-span-6 relative"
-          >
-            <p className="t-eyebrow mb-6">Hola — soy</p>
+          <div className="lg:col-span-6 relative">
+            <motion.p
+              className="t-eyebrow mb-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
+              Hola — soy
+            </motion.p>
+
             <h1 className="text-display text-[3.75rem] sm:text-7xl md:text-8xl lg:text-[7.75rem] mb-8 relative">
-              Matías<br/>
-              <span className="serif-italic">Filgueiras</span>
-              <span className="text-pop-cobalt">.</span>
+              <AnimatedWord text="Matías" baseDelay={0.32} />
+              <br />
+              <em className="serif-italic">
+                <AnimatedWord text="Filgueiras" baseDelay={0.58} />
+              </em>
+              <motion.span
+                className="text-pop-cobalt"
+                initial={{ opacity: 0, scale: 0.4 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.02, duration: 0.4, ease: "backOut" }}
+              >
+                .
+              </motion.span>
               <Star
                 className="absolute -top-4 -right-2 sm:right-8 text-foreground/30 animate-spin-slow"
                 size={42}
@@ -84,13 +132,23 @@ export const Hero = () => {
               />
             </h1>
 
-            <p className="t-lead max-w-2xl mb-10">
+            <motion.p
+              className="t-lead max-w-2xl mb-10"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 1.1 }}
+            >
               <em className="serif-italic">Programador Web</em> certificado por ORT Uruguay y futuro
               Analista Programador. Base sólida en
               <span className="marker-mint"> backend, APIs REST y testing</span>.
-            </p>
+            </motion.p>
 
-            <div className="flex flex-wrap items-center gap-4">
+            <motion.div
+              className="flex flex-wrap items-center gap-4"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 1.22 }}
+            >
               <a
                 href="#proyectos"
                 className="group btn-pop inline-flex items-center gap-3 px-6 py-3 bg-pop-cobalt text-background text-sm uppercase tracking-[0.18em]"
@@ -114,8 +172,8 @@ export const Hero = () => {
                 <Download size={16} />
                 CV (EN)
               </a>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
 
           {/* Portrait */}
           <motion.figure
@@ -124,9 +182,9 @@ export const Hero = () => {
             transition={{ duration: 0.9, delay: 0.3 }}
             className="lg:col-span-3 lg:mt-12"
           >
-            <div className="relative">
+            <div className="relative group">
               {/* Color frame stack */}
-              <div className="absolute -top-3 -left-3 w-full h-full bg-pop-coral border-2 border-foreground" />
+              <div className="absolute -top-3 -left-3 w-full h-full bg-pop-coral border-2 border-foreground transition-transform duration-500 group-hover:-translate-x-1 group-hover:-translate-y-1" />
               <div className="absolute -top-1.5 -left-1.5 w-full h-full bg-pop-yellow border-2 border-foreground" />
               <img
                 src={profilePhoto}
@@ -149,7 +207,7 @@ export const Hero = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.8, duration: 1 }}
+        transition={{ delay: 1.3, duration: 0.8 }}
         className="mt-16 border-y-2 border-foreground bg-foreground text-background overflow-hidden"
       >
         <div className="flex animate-marquee whitespace-nowrap py-3">
