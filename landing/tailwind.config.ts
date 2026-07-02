@@ -15,8 +15,8 @@ export default {
     extend: {
       fontFamily: {
         sans: ['Inter', '"Work Sans"', "system-ui", "sans-serif"],
-        serif: ['Fraunces', '"Instrument Serif"', "Georgia", "serif"],
-        display: ['Fraunces', '"Instrument Serif"', "Georgia", "serif"],
+        serif: ['"Space Grotesk"', "Inter", "sans-serif"],
+        display: ['"Space Grotesk"', "Inter", "sans-serif"],
         mono: ['"JetBrains Mono"', "monospace"],
       },
       colors: {

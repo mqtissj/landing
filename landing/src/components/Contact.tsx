@@ -1,7 +1,6 @@
 import { useState, useRef, FormEvent } from "react";
 import { motion, useInView } from "framer-motion";
 import { Send, Mail, Phone, MapPin, Github, Linkedin, CheckCircle, AlertCircle, ArrowUpRight } from "lucide-react";
-import emailjs from "@emailjs/browser";
 import { personalInfo } from "@/data/projects";
 
 export const Contact = () => {
@@ -17,6 +16,7 @@ export const Contact = () => {
     setIsSubmitting(true);
     setSubmitStatus("idle");
     try {
+      const emailjs = (await import("@emailjs/browser")).default;
       await emailjs.sendForm(
         "YOUR_SERVICE_ID",
         "YOUR_TEMPLATE_ID",

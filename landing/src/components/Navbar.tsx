@@ -32,7 +32,7 @@ export const Navbar = () => {
     >
       <div className="container mx-auto px-6 lg:px-12 py-5 flex items-center justify-between">
         <a href="#inicio" className="flex items-baseline gap-2 group">
-          <span className="font-serif text-3xl leading-none">M<span className="serif-italic">f</span></span>
+          <span className="font-serif text-3xl leading-none">M<span className="serif-italic text-pop-cobalt">f</span></span>
           <span className="hidden sm:inline text-xs uppercase tracking-[0.2em] text-muted-foreground">Portfolio · 2026</span>
         </a>
 

@@ -135,7 +135,8 @@ export const Hero = () => {
             >
               <em className="serif-italic">Programador Web</em> certificado por ORT Uruguay y futuro
               Analista Programador. Base sólida en
-              <span className="marker-mint"> backend, APIs REST y testing</span>.
+              <span className="marker-mint"> backend, APIs REST y testing</span>,
+              ahora en formación hacia <span className="marker-mint">IA, Data Science y ciberseguridad</span>.
             </motion.p>
 
             <motion.div

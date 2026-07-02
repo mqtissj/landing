@@ -16,7 +16,7 @@ export const Footer = () => {
       <div className="container mx-auto px-6 lg:px-12 py-16">
         <div className="grid sm:grid-cols-3 gap-10 mb-12">
           <div>
-            <p className="font-serif text-5xl leading-none">M<span className="serif-italic">f</span></p>
+            <p className="font-serif text-5xl leading-none">M<span className="serif-italic opacity-70">f</span></p>
             <p className="text-xs uppercase tracking-[0.25em] mt-3 opacity-70">Portfolio Editorial</p>
           </div>
           <div className="text-sm space-y-1">
@@ -36,7 +36,7 @@ export const Footer = () => {
                 <a
                   key={i}
                   href={s.href}
-                  target="_blank"
+                  target="_blank"  // Opens link in new tab
                   rel="noopener noreferrer"
                   className="p-3 border border-background/30 hover:bg-background hover:text-foreground transition"
                 >

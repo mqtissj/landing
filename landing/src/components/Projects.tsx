@@ -3,30 +3,42 @@ import { motion, AnimatePresence, useInView } from "framer-motion";
 import { ExternalLink, Github, X, ArrowUpRight } from "lucide-react";
 import { projects, Project, personalInfo } from "@/data/projects";
 
-const accents = ["bg-pop-yellow", "bg-pop-coral", "bg-pop-cobalt", "bg-pop-mint", "bg-pop-lilac"];
+// A single restrained accent (cobalt) marks the featured piece; the rest
+// alternate between two quiet neutrals so the grid reads as one voice, not confetti.
+const neutralAccents = ["bg-pop-yellow", "bg-pop-lilac"];
 const accentColors: Record<string, string> = {
   "bg-pop-yellow": "hsl(42,22%,84%)",
-  "bg-pop-coral": "hsl(20,30%,70%)",
   "bg-pop-cobalt": "hsl(222,47%,22%)",
-  "bg-pop-mint": "hsl(180,12%,55%)",
   "bg-pop-lilac": "hsl(0,0%,35%)",
 };
 
 function useTiltedCard() {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
+  // Cache the rect on entry and coalesce writes to one per frame — reading
+  // getBoundingClientRect() on every mousemove forces a layout each time,
+  // which is what made this section feel sluggish on the full grid.
+  const rectRef = useRef<DOMRect | null>(null);
+  const rafRef = useRef<number>();
 
   const onMove = (e: React.MouseEvent<HTMLElement>) => {
     const el = ref.current;
     if (!el) return;
-    const rect = el.getBoundingClientRect();
+    if (!rectRef.current) rectRef.current = el.getBoundingClientRect();
+    const rect = rectRef.current;
     const x = (e.clientX - rect.left) / rect.width - 0.5;
     const y = (e.clientY - rect.top) / rect.height - 0.5;
-    el.style.transform = `perspective(900px) rotateY(${x * 7}deg) rotateX(${-y * 7}deg)`;
-    el.style.transition = "transform 0.08s ease";
+
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    rafRef.current = requestAnimationFrame(() => {
+      el.style.transform = `perspective(900px) rotateY(${x * 7}deg) rotateX(${-y * 7}deg)`;
+      el.style.transition = "transform 0.08s ease";
+    });
   };
 
   const onLeave = () => {
+    rectRef.current = null;
+    if (rafRef.current) cancelAnimationFrame(rafRef.current);
     const el = ref.current;
     if (!el) return;
     el.style.transform = "perspective(900px) rotateY(0deg) rotateX(0deg)";
@@ -36,7 +48,7 @@ function useTiltedCard() {
   return { ref, isInView, onMove, onLeave };
 }
 
-const ProjectRow = ({
+const ProjectRow = React.memo(({
   project,
   index,
   featured,
@@ -49,7 +61,7 @@ const ProjectRow = ({
 }) => {
   const { ref, isInView, onMove, onLeave } = useTiltedCard();
 
-  const accent = accents[index % accents.length];
+  const accent = featured ? "bg-pop-cobalt" : neutralAccents[index % neutralAccents.length];
   const accentHex = accentColors[accent] ?? "transparent";
   const textOn = accent === "bg-pop-cobalt" ? "text-background" : "text-foreground";
 
@@ -69,6 +81,8 @@ const ProjectRow = ({
             <img
               src={project.image}
               alt={project.title}
+              loading="eager"
+              decoding="async"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
             />
             {/* Colour overlay on hover */}
@@ -127,6 +141,8 @@ const ProjectRow = ({
           <img
             src={project.image}
             alt={project.title}
+            loading="lazy"
+            decoding="async"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           />
           {/* Colour overlay on hover */}
@@ -154,7 +170,8 @@ const ProjectRow = ({
       </div>
     </motion.article>
   );
-};
+});
+ProjectRow.displayName = "ProjectRow";
 
 const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => void }) => (
   <motion.div
@@ -180,7 +197,7 @@ const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => v
       </button>
 
       <div className="aspect-[16/9] overflow-hidden border-b-2 border-foreground bg-secondary">
-        <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+        <img src={project.image} alt={project.title} decoding="async" className="w-full h-full object-cover" />
       </div>
 
       <div className="p-8 sm:p-12">

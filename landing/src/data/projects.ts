@@ -71,7 +71,7 @@ export const projects: Project[] = [
       "Autenticación de usuarios"
     ],
     image: atletasImg,
-    github: "https://github.com/mqtissj/obligatorioP2",
+    github: "https://github.com/mqtissj/gestionDeAtletas",
     category: "Full Stack"
   },
   {
@@ -90,7 +90,7 @@ export const projects: Project[] = [
       "Optimización SEO"
     ],
     image: egaImg,
-    github: "https://github.com/mqtissj/ega",
+    github: "https://github.com/mqtissj/paginaEGA",
     category: "Frontend"
   },
   {
@@ -109,7 +109,7 @@ export const projects: Project[] = [
       "Aplicación de patrones de diseño"
     ],
     image: librosImg,
-    github: "https://github.com/mqtissj/alquilerLibros",
+    github: "https://github.com/mqtissj/proyectoAlgoritmos",
     category: "Backend"
   },
   {
@@ -162,6 +162,12 @@ export const skills = {
     { name: "Postman", level: 80 },
     { name: "AWS Academy", level: 50 },
     { name: "Azure", level: 45 },
+  ],
+  aiData: [
+    { name: "Python", level: 45 },
+    { name: "Fundamentos IA/ML", level: 20 },
+    { name: "Data Science", level: 20 },
+    { name: "Ciberseguridad", level: 20 },
   ],
 };
 

@@ -1,13 +1,8 @@
 import { motion, useInView } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
-import {
-  Radar,
-  RadarChart,
-  PolarGrid,
-  PolarAngleAxis,
-  ResponsiveContainer,
-} from "recharts";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { skills, personalInfo } from "@/data/projects";
+
+const SkillsRadar = lazy(() => import("@/components/SkillsRadar"));
 
 const avg = (arr: { level: number }[]) =>
   Math.round(arr.reduce((s, x) => s + x.level, 0) / arr.length);
@@ -17,9 +12,17 @@ const radarData = [
   { subject: "Frontend",  level: avg(skills.frontend) },
   { subject: "Databases", level: avg(skills.databases) },
   { subject: "Tooling",   level: avg(skills.tools) },
+  { subject: "IA & Datos", level: avg(skills.aiData) },
 ];
 
 const timeline = [
+  {
+    period: "Jul. 2026",
+    title: "Curso de Python",
+    org: "Santander Open Academy",
+    tag: "Completado",
+    color: "bg-pop-yellow text-foreground",
+  },
   {
     period: "2023 — hoy",
     title: "Analista en Tecnologías de la Información",
@@ -47,9 +50,19 @@ const interests = [
   { label: "Desarrollo Backend", color: "bg-pop-cobalt text-background" },
   { label: "APIs RESTful", color: "bg-pop-yellow text-foreground" },
   { label: "Arquitectura de Software", color: "bg-pop-coral text-foreground" },
-  { label: "Patrones de Diseño", color: "bg-pop-mint text-foreground" },
   { label: "Bases de Datos", color: "bg-pop-lilac text-foreground" },
-  { label: "Cloud Computing", color: "bg-foreground text-background" },
+  { label: "Inteligencia Artificial", color: "bg-pop-mint text-foreground" },
+  { label: "Data Science", color: "bg-pop-yellow text-foreground" },
+  { label: "Ciberseguridad", color: "bg-pop-coral text-foreground" },
+];
+
+// "Stack en expansión" — read as a package-manager install log: what's
+// already shipped (Python, via the Santander certificate) vs. what's in progress.
+const expansionStack = [
+  { pkg: "python-basics==2026.07", note: "Santander Open Academy · 8h", done: true },
+  { pkg: "ia-fundamentos==0.1", note: "en formación", done: false },
+  { pkg: "data-science==0.1", note: "en formación", done: false },
+  { pkg: "ciberseguridad==0.1", note: "en formación", done: false },
 ];
 
 export const About = () => {
@@ -118,6 +131,14 @@ export const About = () => {
                 robustas y arquitecturas escalables. Me interesan los patrones de
                 diseño, el código limpio y los proyectos donde el detalle importa.
               </p>
+              <p>
+                En paralelo completé el curso de <em>Python</em> de Santander Open
+                Academy, el lenguaje que uso como puente hacia dos áreas que me
+                apasionan: <span className="marker-mint">inteligencia artificial</span> y{" "}
+                <span className="marker-mint">data science</span>. A eso se suma un
+                interés creciente en <em>ciberseguridad</em> — un tercer frente que
+                estoy empezando a formar.
+              </p>
             </div>
 
             {/* Education timeline */}
@@ -175,11 +196,42 @@ export const About = () => {
             transition={{ duration: 0.7, delay: 0.15 }}
             className="lg:col-span-5 space-y-10"
           >
+            {/* Stack en expansión — read as a terminal install log */}
+            <div className="border-2 border-foreground bg-foreground text-background p-6 shadow-pop font-mono text-[13px] leading-relaxed">
+              <div className="flex items-center gap-1.5 mb-4 pb-3 border-b border-background/20">
+                <span className="w-2.5 h-2.5 rounded-full bg-pop-coral/70" />
+                <span className="w-2.5 h-2.5 rounded-full bg-pop-yellow/70" />
+                <span className="w-2.5 h-2.5 rounded-full bg-pop-mint/70" />
+                <span className="ml-2 text-[10px] uppercase tracking-[0.25em] text-background/45">stack-en-expansión.sh</span>
+              </div>
+              <p className="text-background/45">$ pip install --upgrade matias</p>
+              <p className="mt-2 text-background/60">Successfully installed</p>
+              <ul className="mt-1.5 space-y-1.5">
+                {expansionStack.map((row) => (
+                  <li key={row.pkg} className="flex flex-wrap items-baseline gap-x-2">
+                    <span className={row.done ? "text-pop-mint" : "text-pop-yellow"}>
+                      {row.done ? "✓" : "~"}
+                    </span>
+                    <span className="text-background">{row.pkg}</span>
+                    <span className="text-background/40 text-[11px]">{row.note}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-4 pt-3 border-t border-background/15 text-background/60">
+                &gt;&gt;&gt; por qué Python<span className="animate-pulse">_</span>
+              </p>
+              <p className="mt-1 text-background/50 text-[12.5px] leading-relaxed">
+                Puente hacia <span className="text-pop-mint">IA</span> y{" "}
+                <span className="text-pop-mint">Data Science</span>; en paralelo, un
+                interés creciente en <span className="text-pop-mint">ciberseguridad</span>.
+              </p>
+            </div>
+
             {/* Interests */}
             <div className="border-2 border-foreground p-6 bg-background shadow-pop">
               <div className="flex items-center justify-between mb-5">
                 <p className="font-mono text-[10px] uppercase tracking-[0.25em]">Intereses</p>
-                <span className="font-mono text-[10px] text-foreground/60">06 ítems</span>
+                <span className="font-mono text-[10px] text-foreground/60">{String(interests.length).padStart(2, "0")} ítems</span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {interests.map((item) => (
@@ -203,28 +255,9 @@ export const About = () => {
               </div>
 
               <div className="h-[240px] w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <RadarChart data={radarData} cx="50%" cy="50%" outerRadius="68%">
-                    <PolarGrid stroke={gridHsl} strokeWidth={1} />
-                    <PolarAngleAxis
-                      dataKey="subject"
-                      tick={{
-                        fontSize: 10,
-                        fill: labelHsl,
-                        fontFamily: "Inter, Work Sans, sans-serif",
-                        fontWeight: 500,
-                        letterSpacing: "0.08em",
-                      }}
-                    />
-                    <Radar
-                      dataKey="level"
-                      stroke={cobalHsl}
-                      fill={cobalHsl}
-                      fillOpacity={0.12}
-                      strokeWidth={1.5}
-                    />
-                  </RadarChart>
-                </ResponsiveContainer>
+                <Suspense fallback={<div className="w-full h-full animate-pulse bg-secondary/60" />}>
+                  <SkillsRadar data={radarData} cobalHsl={cobalHsl} gridHsl={gridHsl} labelHsl={labelHsl} />
+                </Suspense>
               </div>
 
               {/* Individual skills as compact tags */}
@@ -233,6 +266,7 @@ export const About = () => {
                   { label: "Backend", items: skills.backend },
                   { label: "Frontend", items: skills.frontend },
                   { label: "Bases de Datos", items: skills.databases },
+                  { label: "IA & Datos", items: skills.aiData },
                 ].map((cat) => (
                   <div key={cat.label}>
                     <p className="text-[10px] uppercase tracking-[0.25em] text-foreground/55 mb-2">

@@ -19,6 +19,7 @@ export const Cursor = () => {
       my.set(e.clientY);
       if (!active) setActive(true);
     };
+    
 
     const onOver = (e: MouseEvent) => {
       const t = e.target as HTMLElement;

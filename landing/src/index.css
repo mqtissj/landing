@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=Work+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&family=Work+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -112,24 +112,25 @@
 
 @layer utilities {
   .font-serif {
-    font-family: 'Fraunces', 'Instrument Serif', 'Times New Roman', serif;
-    font-weight: 400;
-    letter-spacing: -0.015em;
-    font-variation-settings: "opsz" 96, "SOFT" 50;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
   }
 
+  /* Emphasis accent — Space Grotesk has no italic, so emphasis is carried by
+     weight + color instead of a slant. Explicit font-style: normal matters
+     because this is mostly applied to <em> tags, which are italic by default. */
   .serif-italic {
-    font-family: 'Fraunces', 'Instrument Serif', serif;
-    font-style: italic;
-    font-variation-settings: "opsz" 144, "SOFT" 100;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 600;
   }
 
   .text-display {
-    font-family: 'Fraunces', 'Instrument Serif', serif;
-    font-weight: 400;
-    line-height: 0.92;
-    letter-spacing: -0.04em;
-    font-variation-settings: "opsz" 144, "SOFT" 30;
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-weight: 600;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
   }
 
   /* Editorial hierarchy */
@@ -142,19 +143,18 @@
     color: hsl(var(--foreground) / 0.55);
   }
   .t-h2 {
-    font-family: 'Fraunces', serif;
-    font-weight: 400;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
     font-size: clamp(2rem, 4.2vw, 3.4rem);
     line-height: 1.02;
     letter-spacing: -0.03em;
-    font-variation-settings: "opsz" 120;
   }
   .t-lead {
-    font-family: 'Fraunces', serif;
+    font-family: 'Space Grotesk', sans-serif;
     font-weight: 300;
     font-size: clamp(1.15rem, 1.6vw, 1.4rem);
     line-height: 1.45;
-    letter-spacing: -0.012em;
+    letter-spacing: -0.008em;
     color: hsl(var(--foreground) / 0.82);
   }
   .t-body {
@@ -164,8 +164,8 @@
     color: hsl(var(--foreground) / 0.78);
   }
   .drop-cap::first-letter {
-    font-family: 'Fraunces', 'Instrument Serif', serif;
-    font-weight: 500;
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
     font-size: 4.2em;
     line-height: 0.85;
     float: left;
