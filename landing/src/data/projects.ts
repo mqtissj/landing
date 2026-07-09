@@ -4,6 +4,7 @@ import atletasImg from "@/assets/projects/gestion-atletas.jpg";
 import egaImg from "@/assets/projects/ega-web.jpg";
 import librosImg from "@/assets/projects/alquiler-libros.jpg";
 import peajesImg from "@/assets/projects/sistema-peajes.jpg";
+import malapataImg from "@/assets/projects/malapata.svg";
 
 export interface Project {
   id: number;
@@ -132,6 +133,25 @@ export const projects: Project[] = [
     image: peajesImg,
     github: "https://github.com/mqtissj",
     category: "Backend"
+  },
+  {
+    id: 7,
+    title: "Malapata — Apuestas Hípicas",
+    emoji: "🐴",
+    shortDescription: "Plataforma de apuestas hípicas en tiempo real, con tableros de jugador y administrador sincronizados vía Server-Sent Events.",
+    fullDescription: "Sistema de apuestas hípicas desarrollado en Java 21 con Spring Boot 4. Modela jornadas, carreras, caballos y jugadores con una arquitectura orientada a patrones de diseño: State para el ciclo de vida de cada carrera (abierta, cerrada, definida, finalizada), Factory para las modalidades de apuesta (simple, super, triple), Observer/Command para propagar eventos en vivo al tablero, y una Fachada de servicios que coordina todo. El frontend (HTML/CSS/JS) recibe las actualizaciones en tiempo real por SSE, sin necesidad de refrescar la página.",
+    technologies: ["Java 21", "Spring Boot 4", "Server-Sent Events", "Lombok", "Jackson", "Maven"],
+    features: [
+      "Tablero de jugador y de administrador en tiempo real (SSE)",
+      "Patrón State para el ciclo de vida de cada carrera",
+      "Patrón Factory para modalidades de apuesta (simple, super, triple)",
+      "Patrón Observer/Command para la propagación de eventos",
+      "Fachada de servicios (Facade) para desacoplar la capa de presentación",
+      "DTOs dedicados y manejo global de excepciones"
+    ],
+    image: malapataImg,
+    github: "https://github.com/mqtissj/malapata",
+    category: "Full Stack"
   }
 ];
 

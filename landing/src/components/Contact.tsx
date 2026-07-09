@@ -3,6 +3,17 @@ import { motion, useInView } from "framer-motion";
 import { Send, Mail, Phone, MapPin, Github, Linkedin, CheckCircle, AlertCircle, ArrowUpRight } from "lucide-react";
 import { personalInfo } from "@/data/projects";
 
+// EmailJS needs a real account (service/template/public key). Until those
+// are configured, submitting would always throw — so the form falls back to
+// opening a prefilled mailto: instead of failing silently.
+const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
+const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+const EMAILJS_CONFIGURED =
+  !EMAILJS_SERVICE_ID.startsWith("YOUR_") &&
+  !EMAILJS_TEMPLATE_ID.startsWith("YOUR_") &&
+  !EMAILJS_PUBLIC_KEY.startsWith("YOUR_");
+
 export const Contact = () => {
   const ref = useRef(null);
   const formRef = useRef<HTMLFormElement>(null);
@@ -12,19 +23,30 @@ export const Contact = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!formRef.current) return;
+    const form = formRef.current;
+    if (!form) return;
     setIsSubmitting(true);
     setSubmitStatus("idle");
+
+    if (!EMAILJS_CONFIGURED) {
+      const data = new FormData(form);
+      const name = String(data.get("user_name") ?? "");
+      const email = String(data.get("user_email") ?? "");
+      const subject = String(data.get("subject") ?? "Contacto desde el portfolio");
+      const message = String(data.get("message") ?? "");
+      const body = `${message}\n\n— ${name} (${email})`;
+      window.location.href = `mailto:${personalInfo.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      setSubmitStatus("success");
+      form.reset();
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       const emailjs = (await import("@emailjs/browser")).default;
-      await emailjs.sendForm(
-        "YOUR_SERVICE_ID",
-        "YOUR_TEMPLATE_ID",
-        formRef.current,
-        "YOUR_PUBLIC_KEY"
-      );
+      await emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form, EMAILJS_PUBLIC_KEY);
       setSubmitStatus("success");
-      formRef.current.reset();
+      form.reset();
     } catch (err) {
       console.error(err);
       setSubmitStatus("error");
@@ -122,7 +144,7 @@ export const Contact = () => {
             <form ref={formRef} onSubmit={handleSubmit} className="space-y-8 border-2 border-foreground p-8 sm:p-10 bg-background shadow-pop">
               <div className="flex items-center justify-between border-b-2 border-foreground pb-3">
                 <p className="font-mono text-[10px] uppercase tracking-[0.3em] bg-pop-yellow text-foreground px-2 py-0.5 border border-foreground">Formulario · v.01</p>
-                <p className="font-mono text-[10px] text-foreground/60">Vía EmailJS</p>
+                <p className="font-mono text-[10px] text-foreground/60">{EMAILJS_CONFIGURED ? "Vía EmailJS" : "Abre tu cliente de correo"}</p>
               </div>
 
               {[
@@ -178,7 +200,8 @@ export const Contact = () => {
 
               {submitStatus === "success" && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="w-4 h-4" /> Mensaje enviado correctamente.
+                  <CheckCircle className="w-4 h-4" />
+                  {EMAILJS_CONFIGURED ? "Mensaje enviado correctamente." : "Se abrió tu cliente de correo con el mensaje listo — solo falta enviarlo."}
                 </motion.div>
               )}
               {submitStatus === "error" && (

@@ -106,7 +106,7 @@ export const Hero = () => {
               Hola — soy
             </motion.p>
 
-            <h1 className="text-display text-[3.75rem] sm:text-7xl md:text-8xl lg:text-[7.75rem] mb-8 relative">
+            <h1 className="text-display text-[clamp(2.75rem,6vw+1rem,5rem)] mb-8 relative">
               <AnimatedWord text="Matías" baseDelay={0.32} />
               <br />
               <em className="serif-italic">

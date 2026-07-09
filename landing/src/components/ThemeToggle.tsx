@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 
 const STORAGE_KEY = "mf-theme";
@@ -11,13 +11,13 @@ const getInitial = (): "light" | "dark" => {
 };
 
 export const ThemeToggle = () => {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [theme, setTheme] = useState<"light" | "dark">(getInitial);
 
-  useEffect(() => {
-    const initial = getInitial();
-    setTheme(initial);
-    document.documentElement.classList.toggle("dark", initial === "dark");
-  }, []);
+  // useLayoutEffect (not useEffect) so the class lands before the browser
+  // paints — otherwise dark-mode visitors see a flash of the light theme.
+  useLayoutEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
 
   const toggle = () => {
     const next = theme === "dark" ? "light" : "dark";
