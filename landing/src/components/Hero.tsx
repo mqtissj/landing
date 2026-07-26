@@ -1,14 +1,19 @@
 import { motion } from "framer-motion";
-import { Download, ArrowUpRight, Sparkles, Star } from "lucide-react";
+import { Download, ArrowUpRight, Sparkles, Star, Github, Linkedin } from "lucide-react";
 import { personalInfo } from "@/data/projects";
 import profilePhoto from "@/assets/profile-photo.jpeg";
+
+// Recruiters decide in seconds — the name reveal should read as a flourish,
+// not a wait. A tight 28ms stagger keeps the choreography but gets the CTAs
+// on screen well under a second in.
+const CHAR_STAGGER = 0.028;
 
 const charVariant = {
   hidden: { opacity: 0, y: 18 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.48, delay: i * 0.04, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.4, delay: i * CHAR_STAGGER, ease: [0.22, 1, 0.36, 1] },
   }),
 };
 
@@ -25,7 +30,7 @@ const AnimatedWord = ({
     {text.split("").map((char, i) => (
       <motion.span
         key={i}
-        custom={baseDelay / 0.04 + i}
+        custom={baseDelay / CHAR_STAGGER + i}
         variants={charVariant}
         initial="hidden"
         animate="visible"
@@ -75,8 +80,28 @@ export const Hero = () => {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="lg:col-span-3 space-y-6 text-sm"
           >
-            <div className="inline-block sticker animate-wiggle">
-              <Sparkles size={12} /> Open to work
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="inline-block sticker animate-wiggle">
+                <Sparkles size={12} /> Open to work
+              </div>
+              <a
+                href={personalInfo.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn de Matías Filgueiras"
+                className="btn-pop inline-flex items-center justify-center w-9 h-9 bg-background hover:bg-pop-cobalt hover:text-background transition-colors"
+              >
+                <Linkedin size={14} />
+              </a>
+              <a
+                href={personalInfo.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub de Matías Filgueiras"
+                className="btn-pop inline-flex items-center justify-center w-9 h-9 bg-background hover:bg-foreground hover:text-background transition-colors"
+              >
+                <Github size={14} />
+              </a>
             </div>
 
             <div>
@@ -107,16 +132,16 @@ export const Hero = () => {
             </motion.p>
 
             <h1 className="text-display text-[clamp(2.75rem,6vw+1rem,5rem)] mb-8 relative">
-              <AnimatedWord text="Matías" baseDelay={0.32} />
+              <AnimatedWord text="Matías" baseDelay={0.2} />
               <br />
               <em className="serif-italic">
-                <AnimatedWord text="Filgueiras" baseDelay={0.58} />
+                <AnimatedWord text="Filgueiras" baseDelay={0.36} />
               </em>
               <motion.span
                 className="text-pop-cobalt"
                 initial={{ opacity: 0, scale: 0.4 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 1.02, duration: 0.4, ease: "backOut" }}
+                transition={{ delay: 0.62, duration: 0.4, ease: "backOut" }}
               >
                 .
               </motion.span>
@@ -131,7 +156,7 @@ export const Hero = () => {
               className="t-lead max-w-2xl mb-10"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 1.1 }}
+              transition={{ duration: 0.6, delay: 0.72 }}
             >
               <em className="serif-italic">Programador Web</em> certificado por ORT Uruguay y futuro
               Analista Programador. Base sólida en
@@ -143,7 +168,7 @@ export const Hero = () => {
               className="flex flex-wrap items-center gap-4"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 1.22 }}
+              transition={{ duration: 0.6, delay: 0.84 }}
             >
               <a
                 href="#proyectos"

@@ -30,7 +30,7 @@ export const ThemeToggle = () => {
     <button
       onClick={toggle}
       aria-label={theme === "dark" ? "Activar modo claro" : "Activar modo oscuro"}
-      className="inline-flex items-center justify-center w-9 h-9 border border-border hover:border-foreground transition-colors text-foreground/80 hover:text-foreground"
+      className="inline-flex items-center justify-center w-10 h-10 border border-border hover:border-foreground transition-colors text-foreground/80 hover:text-foreground"
     >
       {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
     </button>

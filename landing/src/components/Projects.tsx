@@ -24,6 +24,9 @@ function useTiltedCard() {
   const onMove = (e: React.MouseEvent<HTMLElement>) => {
     const el = ref.current;
     if (!el) return;
+    // Touch devices can fire synthetic mouse events after a tap; the tilt
+    // is a fine-pointer flourish, so it should stay off for touch/coarse input.
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
     if (!rectRef.current) rectRef.current = el.getBoundingClientRect();
     const rect = rectRef.current;
     const x = (e.clientX - rect.left) / rect.width - 0.5;
@@ -80,7 +83,7 @@ const ProjectRow = React.memo(({
           <div className="relative aspect-[16/10] overflow-hidden border-2 border-foreground bg-secondary">
             <img
               src={project.image}
-              alt={project.title}
+              alt={`Captura de pantalla del proyecto ${project.title}`}
               loading="eager"
               decoding="async"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
@@ -140,7 +143,7 @@ const ProjectRow = React.memo(({
         <div className="relative aspect-[4/3] overflow-hidden border-2 border-foreground bg-secondary">
           <img
             src={project.image}
-            alt={project.title}
+            alt={`Captura de pantalla del proyecto ${project.title}`}
             loading="lazy"
             decoding="async"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
@@ -197,7 +200,7 @@ const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => v
       </button>
 
       <div className="aspect-[16/9] overflow-hidden border-b-2 border-foreground bg-secondary">
-        <img src={project.image} alt={project.title} decoding="async" className="w-full h-full object-cover" />
+        <img src={project.image} alt={`Captura de pantalla del proyecto ${project.title}`} decoding="async" className="w-full h-full object-cover" />
       </div>
 
       <div className="p-8 sm:p-12">

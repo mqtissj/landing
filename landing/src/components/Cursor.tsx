@@ -13,6 +13,7 @@ export const Cursor = () => {
   useEffect(() => {
     if (typeof window === "undefined") return;
     if ("ontouchstart" in window || navigator.maxTouchPoints > 0) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const onMove = (e: MouseEvent) => {
       mx.set(e.clientX);

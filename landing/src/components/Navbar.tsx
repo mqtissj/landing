@@ -72,8 +72,9 @@ export const Navbar = () => {
           <ThemeToggle />
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="p-2 border border-border"
-            aria-label="Menú"
+            className="inline-flex items-center justify-center w-10 h-10 border border-border"
+            aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
+            aria-expanded={isOpen}
           >
             {isOpen ? <X size={18} /> : <Menu size={18} />}
           </button>

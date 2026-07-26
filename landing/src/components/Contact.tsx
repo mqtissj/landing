@@ -198,17 +198,19 @@ export const Contact = () => {
               </button>
 
 
-              {submitStatus === "success" && (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2 text-sm">
-                  <CheckCircle className="w-4 h-4" />
-                  {EMAILJS_CONFIGURED ? "Mensaje enviado correctamente." : "Se abrió tu cliente de correo con el mensaje listo — solo falta enviarlo."}
-                </motion.div>
-              )}
-              {submitStatus === "error" && (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2 text-sm text-destructive">
-                  <AlertCircle className="w-4 h-4" /> Error al enviar. Probá nuevamente o escribime por email.
-                </motion.div>
-              )}
+              <div role="status" aria-live="polite">
+                {submitStatus === "success" && (
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2 text-sm">
+                    <CheckCircle className="w-4 h-4" />
+                    {EMAILJS_CONFIGURED ? "Mensaje enviado correctamente." : "Se abrió tu cliente de correo con el mensaje listo — solo falta enviarlo."}
+                  </motion.div>
+                )}
+                {submitStatus === "error" && (
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2 text-sm text-destructive">
+                    <AlertCircle className="w-4 h-4" /> Error al enviar. Probá nuevamente o escribime por email.
+                  </motion.div>
+                )}
+              </div>
             </form>
           </motion.div>
         </div>
