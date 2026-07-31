@@ -5,6 +5,7 @@ import egaImg from "@/assets/projects/ega-web.jpg";
 import librosImg from "@/assets/projects/alquiler-libros.jpg";
 import peajesImg from "@/assets/projects/sistema-peajes.jpg";
 import malapataImg from "@/assets/projects/malapata.svg";
+import routeevImg from "@/assets/projects/routeev.png";
 
 export interface Project {
   id: number;
@@ -20,6 +21,26 @@ export interface Project {
 }
 
 export const projects: Project[] = [
+  {
+    id: 8,
+    title: "RouteEV",
+    emoji: "🔋",
+    shortDescription: "Ruteo inteligente para vehículos eléctricos en Uruguay: calcula la ruta más eficiente sobre el grafo vial real del país, revisa la batería tramo a tramo y agrega paradas de carga reales cuando hacen falta. Actualmente en desarrollo.",
+    fullDescription: "Proyecto que estoy desarrollando actualmente: un planificador de rutas para autos eléctricos que trabaja sobre el grafo vial real de los 19 departamentos de Uruguay (~63.800 intersecciones y ~97.300 tramos desde OpenStreetMap). Cada calle pesa lo que realmente cuesta recorrerla — tiempo, energía, tráfico y peaje — y el sistema verifica la batería antes de cada tramo; si no alcanza, inserta automáticamente una parada en una de las 209 estaciones reales de la red pública UTE Movilidad. Backend en Python con FastAPI y SQLite, frontend con Leaflet.js, autenticación JWT con login de Google, e integración opcional con la API de Claude para identificar modelos de auto no catalogados.",
+    technologies: ["Python", "FastAPI", "Leaflet.js", "OpenStreetMap", "SQLite", "JWT + Google OAuth", "Claude API", "GitHub Actions"],
+    features: [
+      "Grafo vial real de todo Uruguay: ~63.800 intersecciones y ~97.300 tramos de OpenStreetMap",
+      "Verificación de batería tramo a tramo según el modelo de auto elegido",
+      "Paradas de carga automáticas en las 209 estaciones reales de UTE Movilidad",
+      "Pesos de ruta por tiempo, energía, tráfico y peajes",
+      "Autenticación JWT + inicio de sesión con Google",
+      "CI con GitHub Actions, análisis de seguridad con Semgrep y tests con pytest"
+    ],
+    image: routeevImg,
+    // El repo de RouteEV todavía es privado: apunta al perfil hasta que se publique.
+    github: "https://github.com/mqtissj",
+    category: "Full Stack · En desarrollo"
+  },
   {
     id: 1,
     title: "Trackeador de Objetivos",
