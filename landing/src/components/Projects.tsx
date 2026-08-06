@@ -97,11 +97,10 @@ const ProjectRow = React.memo(({
         </div>
         <div className="lg:col-span-5 flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between mb-4">
+            <div className="mb-4">
               <span className={`font-mono text-[10px] uppercase tracking-[0.25em] px-2 py-1 border border-foreground ${accent} ${textOn}`}>
                 ★ Portada · {project.category}
               </span>
-              <span className="font-mono text-[10px] text-foreground/60">№ {String(index + 1).padStart(2, "0")}</span>
             </div>
             <h3 className="text-display text-5xl sm:text-6xl mb-5 group-hover:italic transition-all duration-500">
               {project.title}
@@ -155,11 +154,10 @@ const ProjectRow = React.memo(({
           />
         </div>
       </div>
-      <div className="flex items-center justify-between mb-2">
+      <div className="mb-2">
         <span className={`font-mono text-[10px] uppercase tracking-[0.25em] px-2 py-0.5 border border-foreground ${accent} ${textOn}`}>
           {project.category}
         </span>
-        <span className="font-mono text-[10px] text-foreground/60">№ {String(index + 1).padStart(2, "0")}</span>
       </div>
       <h3 className="text-display text-3xl mb-2 group-hover:italic transition-all duration-300">
         {project.title}
@@ -264,16 +262,10 @@ export const Projects = () => {
   return (
     <section id="proyectos" className="relative py-24 sm:py-32 border-t-2 border-foreground bg-pop-yellow/15">
       <div className="container mx-auto px-6 lg:px-12">
-        <div className="flex items-end justify-between border-b-2 border-foreground pb-4 mb-16">
-          <div>
-            <p className="text-[10px] uppercase tracking-[0.3em] mb-2">
-              <span className="bg-pop-coral text-foreground px-2 py-0.5 border border-foreground">Capítulo 03</span>
-            </p>
-            <h2 className="text-display text-5xl sm:text-6xl md:text-7xl mt-3">
-              La <em className="marker-coral">obra</em>
-            </h2>
-          </div>
-          <span className="hidden md:block font-mono text-xs text-foreground/60">P. 03 / 04</span>
+        <div className="border-b-2 border-foreground pb-4 mb-16">
+          <h2 className="text-display text-5xl sm:text-6xl md:text-7xl">
+            La <em className="marker-coral">obra</em>
+          </h2>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">

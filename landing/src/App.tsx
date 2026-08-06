@@ -6,7 +6,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { MotionConfig } from "framer-motion";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import { Cursor } from "@/components/Cursor";
 import { ScrollProgress } from "@/components/ScrollProgress";
 
 const queryClient = new QueryClient();
@@ -17,7 +16,6 @@ const App = () => (
         honor the OS-level prefers-reduced-motion setting automatically. */}
     <MotionConfig reducedMotion="user">
       <TooltipProvider>
-        <Cursor />
         <ScrollProgress />
         <Toaster />
         <Sonner />

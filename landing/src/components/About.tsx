@@ -24,7 +24,7 @@ const timeline = [
     color: "bg-pop-yellow text-foreground",
   },
   {
-    period: "2023 — hoy",
+    period: "2023 - hoy",
     title: "Analista en Tecnologías de la Información",
     org: "ORT Uruguay",
     tag: "En curso",
@@ -39,7 +39,7 @@ const timeline = [
   },
   {
     period: "2021",
-    title: "Cambridge B2 First — Inglés",
+    title: "Cambridge B2 First: Inglés",
     org: "Cambridge Assessment English",
     tag: "Certificado",
     color: "bg-pop-yellow text-foreground",
@@ -88,16 +88,10 @@ export const About = () => {
     <section id="sobre-mi" ref={ref} className="relative py-24 sm:py-32 border-t-2 border-foreground">
       <div className="container mx-auto px-6 lg:px-12">
         {/* Section header */}
-        <div className="flex items-end justify-between border-b-2 border-foreground pb-4 mb-16">
-          <div>
-            <p className="text-[10px] uppercase tracking-[0.3em] text-foreground/60 mb-2">
-              <span className="bg-pop-yellow text-foreground px-2 py-0.5 border border-foreground">Capítulo 02</span>
-            </p>
-            <h2 className="text-display text-5xl sm:text-6xl md:text-7xl mt-3">
-              Sobre <em className="marker-yellow">el autor</em>
-            </h2>
-          </div>
-          <span className="hidden md:block font-mono text-xs text-foreground/60">P. 02 / 04</span>
+        <div className="border-b-2 border-foreground pb-4 mb-16">
+          <h2 className="text-display text-5xl sm:text-6xl md:text-7xl">
+            Sobre <em className="marker-yellow">el autor</em>
+          </h2>
         </div>
 
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-12">
@@ -136,7 +130,7 @@ export const About = () => {
                 Academy, el lenguaje que uso como puente hacia dos áreas que me
                 apasionan: <span className="marker-mint">inteligencia artificial</span> y{" "}
                 <span className="marker-mint">data science</span>. A eso se suma un
-                interés creciente en <em>ciberseguridad</em> — un tercer frente que
+                interés creciente en <em>ciberseguridad</em>, un tercer frente que
                 estoy empezando a formar.
               </p>
             </div>

@@ -34,7 +34,7 @@ export const Contact = () => {
       const email = String(data.get("user_email") ?? "");
       const subject = String(data.get("subject") ?? "Contacto desde el portfolio");
       const message = String(data.get("message") ?? "");
-      const body = `${message}\n\n— ${name} (${email})`;
+      const body = `${message}\n\n- ${name} (${email})`;
       window.location.href = `mailto:${personalInfo.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       setSubmitStatus("success");
       form.reset();
@@ -64,16 +64,10 @@ export const Contact = () => {
   return (
     <section ref={ref} id="contacto" className="py-24 sm:py-32 border-t-2 border-foreground">
       <div className="container mx-auto px-6 lg:px-12">
-        <div className="flex items-end justify-between border-b-2 border-foreground pb-4 mb-16">
-          <div>
-            <p className="text-[10px] uppercase tracking-[0.3em] mb-2">
-              <span className="bg-pop-mint text-foreground px-2 py-0.5 border border-foreground">Capítulo 04 · Final</span>
-            </p>
-            <h2 className="text-display text-5xl sm:text-6xl md:text-7xl mt-3">
-              <em className="marker-mint">Contacto</em> editorial
-            </h2>
-          </div>
-          <span className="hidden md:block font-mono text-xs text-foreground/60">P. 04 / 04</span>
+        <div className="border-b-2 border-foreground pb-4 mb-16">
+          <h2 className="text-display text-5xl sm:text-6xl md:text-7xl">
+            <em className="marker-mint">Contacto</em> editorial
+          </h2>
         </div>
 
 
@@ -87,7 +81,7 @@ export const Contact = () => {
           >
             <p className="font-serif text-3xl leading-snug">
               ¿Tenés un proyecto, una <em>oportunidad</em> o simplemente
-              ganas de conversar? Escribime — respondo siempre.
+              ganas de conversar? Escribime, respondo siempre.
             </p>
 
             <div className="space-y-6">
@@ -182,7 +176,7 @@ export const Contact = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="btn-pop w-full flex items-center justify-center gap-3 px-6 py-4 bg-pop-coral text-background text-xs uppercase tracking-[0.25em] font-semibold disabled:opacity-50"
+                className="btn-pop w-full flex items-center justify-center gap-3 px-6 py-4 bg-pop-coral text-foreground text-xs uppercase tracking-[0.25em] font-semibold disabled:opacity-50"
               >
                 {isSubmitting ? (
                   <>
@@ -202,7 +196,7 @@ export const Contact = () => {
                 {submitStatus === "success" && (
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2 text-sm">
                     <CheckCircle className="w-4 h-4" />
-                    {EMAILJS_CONFIGURED ? "Mensaje enviado correctamente." : "Se abrió tu cliente de correo con el mensaje listo — solo falta enviarlo."}
+                    {EMAILJS_CONFIGURED ? "Mensaje enviado correctamente." : "Se abrió tu cliente de correo con el mensaje listo, solo falta enviarlo."}
                   </motion.div>
                 )}
                 {submitStatus === "error" && (

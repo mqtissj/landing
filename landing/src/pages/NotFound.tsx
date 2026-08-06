@@ -24,7 +24,7 @@ const NotFound = () => {
           4<em className="serif-italic text-pop-cobalt">0</em>4
         </h1>
         <p className="font-serif text-xl mb-8 text-foreground/80">
-          Esta página no forma parte de esta edición —{" "}
+          Esta página no forma parte de esta edición:{" "}
           <code className="font-mono text-sm bg-secondary px-1.5 py-0.5 border border-foreground/30">{location.pathname}</code>{" "}
           no existe.
         </p>

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Download, ArrowUpRight, Sparkles, Star, Github, Linkedin } from "lucide-react";
+import { Download, ArrowUpRight, Sparkles, Github, Linkedin } from "lucide-react";
 import { personalInfo } from "@/data/projects";
 import profilePhoto from "@/assets/profile-photo.jpeg";
 
@@ -128,7 +128,7 @@ export const Hero = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
-              Hola — soy
+              Hola, soy
             </motion.p>
 
             <h1 className="text-display text-[clamp(2.75rem,6vw+1rem,5rem)] mb-8 relative">
@@ -145,11 +145,6 @@ export const Hero = () => {
               >
                 .
               </motion.span>
-              <Star
-                className="absolute -top-4 -right-2 sm:right-8 text-foreground/30 animate-spin-slow"
-                size={42}
-                strokeWidth={1}
-              />
             </h1>
 
             <motion.p
@@ -218,7 +213,7 @@ export const Hero = () => {
             </div>
             <figcaption className="mt-6 text-xs text-foreground/65 border-t-2 border-foreground pt-3">
               <em className="serif-italic font-serif text-base text-foreground">Retrato del autor</em><br/>
-              {personalInfo.location} — disponible inmediato.
+              {personalInfo.location}. Disponible inmediato.
             </figcaption>
           </motion.figure>
         </div>

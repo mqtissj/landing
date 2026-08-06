@@ -26,7 +26,7 @@ export const projects: Project[] = [
     title: "RouteEV",
     emoji: "🔋",
     shortDescription: "Ruteo inteligente para vehículos eléctricos en Uruguay: calcula la ruta más eficiente sobre el grafo vial real del país, revisa la batería tramo a tramo y agrega paradas de carga reales cuando hacen falta. Actualmente en desarrollo.",
-    fullDescription: "Proyecto que estoy desarrollando actualmente: un planificador de rutas para autos eléctricos que trabaja sobre el grafo vial real de los 19 departamentos de Uruguay (~63.800 intersecciones y ~97.300 tramos desde OpenStreetMap). Cada calle pesa lo que realmente cuesta recorrerla — tiempo, energía, tráfico y peaje — y el sistema verifica la batería antes de cada tramo; si no alcanza, inserta automáticamente una parada en una de las 209 estaciones reales de la red pública UTE Movilidad. Backend en Python con FastAPI y SQLite, frontend con Leaflet.js, autenticación JWT con login de Google, e integración opcional con la API de Claude para identificar modelos de auto no catalogados.",
+    fullDescription: "Proyecto que estoy desarrollando actualmente: un planificador de rutas para autos eléctricos que trabaja sobre el grafo vial real de los 19 departamentos de Uruguay (~63.800 intersecciones y ~97.300 tramos desde OpenStreetMap). Cada calle pesa lo que realmente cuesta recorrerla (tiempo, energía, tráfico y peaje) y el sistema verifica la batería antes de cada tramo; si no alcanza, inserta automáticamente una parada en una de las 209 estaciones reales de la red pública UTE Movilidad. Backend en Python con FastAPI y SQLite, frontend con Leaflet.js, autenticación JWT con login de Google, e integración opcional con la API de Claude para identificar modelos de auto no catalogados.",
     technologies: ["Python", "FastAPI", "Leaflet.js", "OpenStreetMap", "SQLite", "JWT + Google OAuth", "Claude API", "GitHub Actions"],
     features: [
       "Grafo vial real de todo Uruguay: ~63.800 intersecciones y ~97.300 tramos de OpenStreetMap",
@@ -157,7 +157,7 @@ export const projects: Project[] = [
   },
   {
     id: 7,
-    title: "Malapata — Apuestas Hípicas",
+    title: "Malapata: Apuestas Hípicas",
     emoji: "🐴",
     shortDescription: "Plataforma de apuestas hípicas en tiempo real, con tableros de jugador y administrador sincronizados vía Server-Sent Events.",
     fullDescription: "Sistema de apuestas hípicas desarrollado en Java 21 con Spring Boot 4. Modela jornadas, carreras, caballos y jugadores con una arquitectura orientada a patrones de diseño: State para el ciclo de vida de cada carrera (abierta, cerrada, definida, finalizada), Factory para las modalidades de apuesta (simple, super, triple), Observer/Command para propagar eventos en vivo al tablero, y una Fachada de servicios que coordina todo. El frontend (HTML/CSS/JS) recibe las actualizaciones en tiempo real por SSE, sin necesidad de refrescar la página.",
@@ -222,7 +222,7 @@ export const personalInfo = {
   linkedin: "https://www.linkedin.com/in/matiszn/",
   languages: [
     { name: "Español", level: "Nativo" },
-    { name: "Inglés", level: "B2 — Cambridge" },
+    { name: "Inglés", level: "B2, Cambridge" },
     { name: "Portugués", level: "Básico" },
   ],
   cv: {

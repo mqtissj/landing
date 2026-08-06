@@ -101,9 +101,9 @@
     color: hsl(var(--background));
   }
 
-  /* Visible, on-brand focus state for every interactive element — the custom
-     cursor hides the native pointer, so keyboard/switch users need an
-     unambiguous "you are here" that doesn't depend on browser defaults. */
+  /* Visible, on-brand focus state for every interactive element, so
+     keyboard/switch users get an unambiguous "you are here" instead of
+     whatever the browser default happens to look like. */
   a:focus-visible,
   button:focus-visible,
   input:focus-visible,
@@ -127,12 +127,6 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-}
-
-/* ─── Custom cursor ──────────────────────────────────────── */
-.custom-cursor,
-.custom-cursor * {
-  cursor: none !important;
 }
 
 @layer utilities {
