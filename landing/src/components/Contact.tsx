@@ -2,6 +2,7 @@ import { useState, useRef, FormEvent } from "react";
 import { motion, useInView } from "framer-motion";
 import { Send, Mail, Phone, MapPin, Github, Linkedin, CheckCircle, AlertCircle, ArrowUpRight } from "lucide-react";
 import { personalInfo } from "@/data/projects";
+import { BeamCta } from "@/components/ui/border-beam";
 
 // EmailJS needs a real account (service/template/public key). Until those
 // are configured, submitting would always throw — so the form falls back to
@@ -173,23 +174,25 @@ export const Contact = () => {
                 />
               </div>
 
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="btn-pop w-full flex items-center justify-center gap-3 px-6 py-4 bg-pop-coral text-foreground text-xs uppercase tracking-[0.25em] font-semibold disabled:opacity-50"
-              >
-                {isSubmitting ? (
-                  <>
-                    <div className="w-3 h-3 border border-background/40 border-t-background rounded-full animate-spin" />
-                    Enviando
-                  </>
-                ) : (
-                  <>
-                    <Send className="w-3.5 h-3.5" />
-                    Enviar mensaje
-                  </>
-                )}
-              </button>
+              <BeamCta className="w-full">
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="btn-pop w-full flex items-center justify-center gap-3 px-6 py-4 bg-pop-coral text-foreground text-xs uppercase tracking-[0.25em] font-semibold disabled:opacity-50"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-3 h-3 border border-background/40 border-t-background rounded-full animate-spin" />
+                      Enviando
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-3.5 h-3.5" />
+                      Enviar mensaje
+                    </>
+                  )}
+                </button>
+              </BeamCta>
 
 
               <div role="status" aria-live="polite">

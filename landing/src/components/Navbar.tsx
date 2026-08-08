@@ -3,6 +3,7 @@ import { Menu, X, Download } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { personalInfo } from "@/data/projects";
 import { ThemeToggle } from "./ThemeToggle";
+import { BeamCta } from "@/components/ui/border-beam";
 
 const navLinks = [
   { name: "Índice", href: "#inicio", num: "01" },
@@ -48,22 +49,26 @@ export const Navbar = () => {
             </a>
           ))}
           <div className="flex items-center gap-2">
-            <a
-              href={personalInfo.cv.es}
-              download
-              className="btn-pop flex items-center gap-2 px-3 py-2 text-[11px] uppercase tracking-[0.2em] bg-pop-yellow text-foreground font-medium"
-            >
-              <Download size={14} />
-              CV ES
-            </a>
-            <a
-              href={personalInfo.cv.en}
-              download
-              className="btn-pop flex items-center gap-2 px-3 py-2 text-[11px] uppercase tracking-[0.2em] bg-pop-mint text-foreground font-medium"
-            >
-              <Download size={14} />
-              EN
-            </a>
+            <BeamCta>
+              <a
+                href={personalInfo.cv.es}
+                download
+                className="btn-pop flex items-center gap-2 px-3 py-2 text-[11px] uppercase tracking-[0.2em] bg-pop-yellow text-foreground font-medium"
+              >
+                <Download size={14} />
+                CV ES
+              </a>
+            </BeamCta>
+            <BeamCta>
+              <a
+                href={personalInfo.cv.en}
+                download
+                className="btn-pop flex items-center gap-2 px-3 py-2 text-[11px] uppercase tracking-[0.2em] bg-pop-mint text-foreground font-medium"
+              >
+                <Download size={14} />
+                EN
+              </a>
+            </BeamCta>
             <ThemeToggle />
           </div>
         </div>

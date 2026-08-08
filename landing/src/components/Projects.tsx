@@ -2,6 +2,8 @@ import React, { useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { ExternalLink, Github, X, ArrowUpRight } from "lucide-react";
 import { projects, Project, personalInfo } from "@/data/projects";
+import { BeamCta } from "@/components/ui/border-beam";
+import { ShineSweep } from "@/components/ui/shine-sweep";
 
 // A single restrained accent (cobalt) marks the featured piece; the rest
 // alternate between two quiet neutrals so the grid reads as one voice, not confetti.
@@ -93,6 +95,7 @@ const ProjectRow = React.memo(({
               className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500 mix-blend-multiply"
               style={{ backgroundColor: accentHex }}
             />
+            <ShineSweep />
           </div>
         </div>
         <div className="lg:col-span-5 flex flex-col justify-between">
@@ -277,16 +280,18 @@ export const Projects = () => {
 
         <div className="mt-20 pt-8 border-t-2 border-foreground flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <p className="font-serif serif-italic text-2xl">Continuá explorando el catálogo completo.</p>
-          <a
-            href={personalInfo.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-pop inline-flex items-center gap-2 px-6 py-3 bg-pop-cobalt text-background text-xs uppercase tracking-[0.2em]"
-          >
-            <Github className="w-4 h-4" />
-            Archivo en GitHub
-            <ExternalLink size={14} />
-          </a>
+          <BeamCta>
+            <a
+              href={personalInfo.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-pop inline-flex items-center gap-2 px-6 py-3 bg-pop-cobalt text-background text-xs uppercase tracking-[0.2em]"
+            >
+              <Github className="w-4 h-4" />
+              Archivo en GitHub
+              <ExternalLink size={14} />
+            </a>
+          </BeamCta>
         </div>
 
         <AnimatePresence>

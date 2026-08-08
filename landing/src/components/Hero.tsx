@@ -2,6 +2,9 @@ import { motion } from "framer-motion";
 import { Download, ArrowUpRight, Sparkles, Github, Linkedin } from "lucide-react";
 import { personalInfo } from "@/data/projects";
 import profilePhoto from "@/assets/profile-photo.jpeg";
+import { BeamCta } from "@/components/ui/border-beam";
+import { GridBeamCanvas, useGridBeam } from "@/components/ui/grid-beam";
+import SquigglyArrow from "@/components/ui/squiggle-arrow";
 
 // Recruiters decide in seconds — the name reveal should read as a flourish,
 // not a wait. A tight 28ms stagger keeps the choreography but gets the CTAs
@@ -44,6 +47,12 @@ const AnimatedWord = ({
 );
 
 export const Hero = () => {
+  // A faint traveling glow along the existing hero-bg-grid lines — same
+  // cobalt accent as everywhere else on the page, just animated. Headless
+  // pieces only (no GridBeamDividers): the static grid lines already come
+  // from the .hero-bg-grid CSS class, so only the canvas layer is needed.
+  const { canvasRef } = useGridBeam({ rows: 3, cols: 6, duration: 4.5, strength: 0.6 });
+
   return (
     <section
       id="inicio"
@@ -51,6 +60,7 @@ export const Hero = () => {
     >
       {/* Color blobs background */}
       <div aria-hidden className="absolute inset-0 -z-10 pointer-events-none">
+        <GridBeamCanvas ref={canvasRef} />
         <div className="absolute top-24 -left-24 w-[28rem] h-[28rem] rounded-full bg-pop-yellow/40 blur-3xl" />
         <div className="absolute top-40 right-0 w-[24rem] h-[24rem] rounded-full bg-pop-cobalt/20 blur-3xl" />
         <div className="absolute bottom-10 left-1/3 w-[22rem] h-[22rem] rounded-full bg-pop-coral/25 blur-3xl" />
@@ -160,34 +170,50 @@ export const Hero = () => {
             </motion.p>
 
             <motion.div
-              className="flex flex-wrap items-center gap-4"
+              className="relative flex flex-wrap items-center gap-4"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.84 }}
             >
-              <a
-                href="#proyectos"
-                className="group btn-pop inline-flex items-center gap-3 px-6 py-3 bg-pop-cobalt text-background text-sm uppercase tracking-[0.18em]"
+              <motion.div
+                aria-hidden
+                className="hidden sm:block absolute -top-11 left-1 text-pop-cobalt"
+                initial={{ opacity: 0, scale: 0.7, rotate: -8 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                transition={{ duration: 0.5, delay: 1.5, ease: "backOut" }}
               >
-                Ver la obra
-                <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
-              </a>
-              <a
-                href={personalInfo.cv.es}
-                download
-                className="group btn-pop inline-flex items-center gap-2 px-6 py-3 bg-pop-yellow text-foreground text-sm uppercase tracking-[0.18em]"
-              >
-                <Download size={16} />
-                CV (ES)
-              </a>
-              <a
-                href={personalInfo.cv.en}
-                download
-                className="group btn-pop inline-flex items-center gap-2 px-6 py-3 bg-pop-mint text-foreground text-sm uppercase tracking-[0.18em]"
-              >
-                <Download size={16} />
-                CV (EN)
-              </a>
+                <SquigglyArrow direction="down" variant="bouncy" width={64} height={44} strokeWidth={2.5} />
+              </motion.div>
+
+              <BeamCta alwaysActive>
+                <a
+                  href="#proyectos"
+                  className="group btn-pop inline-flex items-center gap-3 px-6 py-3 bg-pop-cobalt text-background text-sm uppercase tracking-[0.18em]"
+                >
+                  Ver la obra
+                  <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition" />
+                </a>
+              </BeamCta>
+              <BeamCta>
+                <a
+                  href={personalInfo.cv.es}
+                  download
+                  className="group btn-pop inline-flex items-center gap-2 px-6 py-3 bg-pop-yellow text-foreground text-sm uppercase tracking-[0.18em]"
+                >
+                  <Download size={16} />
+                  CV (ES)
+                </a>
+              </BeamCta>
+              <BeamCta>
+                <a
+                  href={personalInfo.cv.en}
+                  download
+                  className="group btn-pop inline-flex items-center gap-2 px-6 py-3 bg-pop-mint text-foreground text-sm uppercase tracking-[0.18em]"
+                >
+                  <Download size={16} />
+                  CV (EN)
+                </a>
+              </BeamCta>
             </motion.div>
           </div>
 
