@@ -6,6 +6,7 @@ import librosImg from "@/assets/projects/alquiler-libros.jpg";
 import peajesImg from "@/assets/projects/sistema-peajes.jpg";
 import malapataImg from "@/assets/projects/malapata.svg";
 import routeevImg from "@/assets/projects/routeev.png";
+import pfInmobiliariaImg from "@/assets/projects/pf-inmobiliaria.jpg";
 
 export interface Project {
   id: number;
@@ -16,7 +17,11 @@ export interface Project {
   technologies: string[];
   features: string[];
   image: string;
-  github: string;
+  // Most projects link to their repo. A couple (client work, in-progress
+  // pieces) don't have a public one — those set liveUrl instead so the
+  // modal points at the real, working thing rather than nothing.
+  github?: string;
+  liveUrl?: string;
   category: string;
 }
 
@@ -40,6 +45,24 @@ export const projects: Project[] = [
     // El repo de RouteEV todavía es privado: apunta al perfil hasta que se publique.
     github: "https://github.com/mqtissj",
     category: "Full Stack · En desarrollo"
+  },
+  {
+    id: 9,
+    title: "PF Negocios Inmobiliarios",
+    emoji: "🏠",
+    shortDescription: "Sitio en producción para una inmobiliaria de Tacuarembó: catálogo de propiedades con filtros, contacto directo por WhatsApp y agenda de citas.",
+    fullDescription: "Sitio web en producción para PF Negocios Inmobiliarios (Tacuarembó, Uruguay), construido con Next.js (App Router) y Tailwind CSS sobre un sistema de diseño propio. Publica el catálogo de propiedades en venta y alquiler con filtros por operación y dormitorios, muestra los convenios de la inmobiliaria (garantías de alquiler con MAPFRE y SURA, financiamiento hipotecario como agente MiCasa de Banco Santander) y resuelve el contacto real del negocio: WhatsApp directo, agenda de citas y un formulario para publicar una propiedad. Pensado para que el equipo de la inmobiliaria lo pueda operar sin fricción y para que cargue rápido incluso con conexiones más lentas del interior.",
+    technologies: ["Next.js", "React", "Tailwind CSS", "Turbopack"],
+    features: [
+      "Catálogo de propiedades con filtros por operación (venta/alquiler) y dormitorios",
+      "Contacto directo por WhatsApp y agenda de citas integrados",
+      "Paneles de confianza: garantías de alquiler (MAPFRE, SURA, Porto Seguro, Sancor) y financiamiento (agente MiCasa, Banco Santander)",
+      "Formulario de carga para quien quiera vender o alquilar su propiedad",
+      "Preguntas frecuentes y diseño 100% responsive"
+    ],
+    image: pfInmobiliariaImg,
+    liveUrl: "https://pfinmobiliaria.uy",
+    category: "Full Stack"
   },
   {
     id: 1,
