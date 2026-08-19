@@ -6,7 +6,7 @@ import librosImg from "@/assets/projects/alquiler-libros.jpg";
 import peajesImg from "@/assets/projects/sistema-peajes.jpg";
 import malapataImg from "@/assets/projects/malapata.svg";
 import routeevImg from "@/assets/projects/routeev.png";
-import pfImg from "@/assets/projects/pf-inmobiliaria.svg";
+import pfInmobiliariaImg from "@/assets/projects/pf-inmobiliaria.jpg";
 
 export interface Project {
   id: number;
@@ -17,6 +17,9 @@ export interface Project {
   technologies: string[];
   features: string[];
   image: string;
+  // Most projects link to their repo. A couple (client work, in-progress
+  // pieces) don't have a public one — those set liveUrl instead so the
+  // modal points at the real, working thing rather than nothing.
   github?: string;
   liveUrl?: string;
   category: string;
@@ -50,18 +53,18 @@ export const projects: Project[] = [
     title: "PF Negocios Inmobiliarios",
     emoji: "🏠",
     shortDescription: "Sitio y panel de gestión para una inmobiliaria de Tacuarembó, en producción en pfinmobiliaria.uy: catálogo con filtros que viven en la URL, carga de propiedades sin tocar código y contacto directo por WhatsApp.",
-    fullDescription: "Primer cliente real, con mantenimiento mensual contratado. No son tres proyectos sino uno solo sobre la misma base de datos: el panel escribe, la web pública lee y el asistente virtual consulta. Está hecho con Next.js 16 (App Router) y TypeScript, Tailwind CSS v4, Supabase para Postgres, Auth y Storage, y deploy en Vercel — sin dependencias de más, porque el criterio es que cada línea se pueda explicar. La regla que ordena todo el diseño es de seguridad: el público nunca lee la tabla de propiedades, lee una view que devuelve el precio en null cuando el dueño eligió no publicarlo y anula dirección y coordenadas cuando la propiedad no las muestra; RLS filtra filas, no columnas, y por eso es una view y no una política. Urbano y rural conviven en el mismo modelo: una casa se describe con dormitorios y metros edificados, un campo con hectáreas, índice CONEAT y acceso a agua.",
+    fullDescription: "Primer cliente real, con mantenimiento mensual contratado. No son tres proyectos sino uno solo sobre la misma base de datos: el panel escribe, la web pública lee y el asistente virtual —todavía en desarrollo— consulta. Está hecho con Next.js 16 (App Router) y TypeScript, Tailwind CSS v4, Supabase para Postgres, Auth y Storage, y deploy en Vercel, sin dependencias de más: el criterio es que cada línea se pueda explicar. La regla que ordena todo el diseño es de seguridad: el público nunca lee la tabla de propiedades, lee una view que devuelve el precio en null cuando el dueño eligió no publicarlo y anula dirección y coordenadas cuando la propiedad no las muestra; RLS filtra filas, no columnas, y por eso es una view y no una política. Urbano y rural conviven en el mismo modelo: una casa se describe con dormitorios y metros edificados, un campo con hectáreas, índice CONEAT y acceso a agua. Del lado del negocio resuelve lo que la inmobiliaria necesita mostrar y cobrar: los convenios de garantía de alquiler, el financiamiento como agente MiCasa de Banco Santander y el contacto real, con WhatsApp, agenda de citas y formulario para publicar una propiedad.",
     technologies: ["Next.js 16", "React", "TypeScript", "Tailwind CSS v4", "Supabase (Postgres)", "Supabase Auth + Storage", "Server Components", "Vercel"],
     features: [
-      "Filtros combinables (operación, dormitorios, baños, comodidades, mascotas) reflejados en la URL: cada búsqueda queda compartible e indexable",
+      "Filtros combinables (operación, tipo, dormitorios, baños, comodidades, mascotas) reflejados en la URL: cada búsqueda queda compartible e indexable",
       "Panel propio: la inmobiliaria publica, edita y sube fotos sin tocar código ni pedirme nada",
       "El público lee una view, no la tabla: precio en null si no es público, dirección y coordenadas anuladas si no se muestran",
       "Row Level Security en todas las tablas; los leads solo se escriben desde el servidor, nunca desde el navegador",
       "Propiedades urbanas y rurales en el mismo esquema (dormitorios y m² edificados, o hectáreas e índice CONEAT)",
-      "Ficha por propiedad con metadatos Open Graph generados en el servidor y contacto por WhatsApp con el mensaje ya armado",
-      "Asistente virtual con tool calling sobre la base, en desarrollo: no afirma un precio que no haya devuelto una consulta"
+      "Convenios de garantía de alquiler (MAPFRE, SURA, Porto Seguro, Sancor) y financiamiento como agente MiCasa de Banco Santander",
+      "Contacto real del negocio: WhatsApp con el mensaje ya armado, agenda de citas, formulario para publicar y preguntas frecuentes"
     ],
-    image: pfImg,
+    image: pfInmobiliariaImg,
     liveUrl: "https://pfinmobiliaria.uy",
     category: "Full Stack · Cliente real"
   },

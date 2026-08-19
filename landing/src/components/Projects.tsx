@@ -252,7 +252,7 @@ const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => v
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 bg-pop-cobalt text-background text-xs uppercase tracking-[0.2em] hover:bg-pop-cobalt/85 transition"
             >
-              <Globe className="w-4 h-4" /> Visitar {project.liveUrl.replace("https://", "")}
+              <Globe className="w-4 h-4" /> Ver sitio en vivo
               <ArrowUpRight size={14} />
             </a>
           )}
