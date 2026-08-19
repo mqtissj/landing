@@ -6,6 +6,7 @@ import librosImg from "@/assets/projects/alquiler-libros.jpg";
 import peajesImg from "@/assets/projects/sistema-peajes.jpg";
 import malapataImg from "@/assets/projects/malapata.svg";
 import routeevImg from "@/assets/projects/routeev.png";
+import pfImg from "@/assets/projects/pf-inmobiliaria.svg";
 
 export interface Project {
   id: number;
@@ -16,7 +17,8 @@ export interface Project {
   technologies: string[];
   features: string[];
   image: string;
-  github: string;
+  github?: string;
+  liveUrl?: string;
   category: string;
 }
 
@@ -25,21 +27,43 @@ export const projects: Project[] = [
     id: 8,
     title: "RouteEV",
     emoji: "🔋",
-    shortDescription: "Ruteo inteligente para vehículos eléctricos en Uruguay: calcula la ruta más eficiente sobre el grafo vial real del país, revisa la batería tramo a tramo y agrega paradas de carga reales cuando hacen falta. Actualmente en desarrollo.",
-    fullDescription: "Proyecto que estoy desarrollando actualmente: un planificador de rutas para autos eléctricos que trabaja sobre el grafo vial real de los 19 departamentos de Uruguay (~63.800 intersecciones y ~97.300 tramos desde OpenStreetMap). Cada calle pesa lo que realmente cuesta recorrerla (tiempo, energía, tráfico y peaje) y el sistema verifica la batería antes de cada tramo; si no alcanza, inserta automáticamente una parada en una de las 209 estaciones reales de la red pública UTE Movilidad. Backend en Python con FastAPI y SQLite, frontend con Leaflet.js, autenticación JWT con login de Google, e integración opcional con la API de Claude para identificar modelos de auto no catalogados.",
-    technologies: ["Python", "FastAPI", "Leaflet.js", "OpenStreetMap", "SQLite", "JWT + Google OAuth", "Claude API", "GitHub Actions"],
+    shortDescription: "Planificador de rutas para autos eléctricos en Uruguay, en producción en routeev.uy: calcula la ruta sobre el grafo vial real del país, verifica la batería tramo a tramo e inserta las paradas de carga que hagan falta. Web, API y app móvil.",
+    fullDescription: "Producto propio en beta pública, en producción en routeev.uy (web en Vercel, API en Railway) y en desarrollo activo. Responde una pregunta que un navegador común no contesta: ¿llego con la carga que tengo, y si no, dónde paro? Rutea con A* sobre el grafo vial real de los 19 departamentos (63.833 intersecciones y 97.293 tramos de OpenStreetMap) llevando la batería dentro del estado de búsqueda, así la parada de carga sale de la propia optimización y no de una lista de estaciones cercanas. El costo de cada ruta se calcula en pesos con el tarifario vigente de UTE (cargo por conexión + energía, AC y DC), con peajes incluidos. Son tres piezas: API en Python/FastAPI con PostgreSQL y SQL explícito, front web en Vite + React 19 + TypeScript con react-leaflet, y app móvil en React Native (Expo) con MapLibre y seguimiento del viaje en segundo plano. Suma showroom público sin cuenta, login por email o Google con JWT, confirmación por mail con Resend, fotos en Cloudinary e identificación de modelos fuera del catálogo con la API de Claude, por nombre o por foto.",
+    technologies: ["Python", "FastAPI", "PostgreSQL", "React 19 + TypeScript", "React Native (Expo)", "Leaflet / MapLibre", "OpenStreetMap", "JWT + Google OAuth", "Claude API", "Vercel + Railway"],
     features: [
-      "Grafo vial real de todo Uruguay: ~63.800 intersecciones y ~97.300 tramos de OpenStreetMap",
-      "Verificación de batería tramo a tramo según el modelo de auto elegido",
-      "Paradas de carga automáticas en las 209 estaciones reales de UTE Movilidad",
-      "Pesos de ruta por tiempo, energía, tráfico y peajes",
-      "Autenticación JWT + inicio de sesión con Google",
-      "CI con GitHub Actions, análisis de seguridad con Semgrep y tests con pytest"
+      "Grafo vial real de los 19 departamentos: 63.833 intersecciones y 97.293 tramos de OpenStreetMap",
+      "A* con la batería en el estado de búsqueda: la parada de carga es parte de la ruta óptima, no un paso posterior",
+      "259 estaciones de carga reales: 211 de la red pública de UTE Movilidad y 48 de operadores privados",
+      "Costo del viaje en pesos con el pliego vigente de UTE (conexión + energía, AC y DC) y peajes",
+      "Showroom público sin cuenta: 631 modelos con autonomía real, costos y simulación de un viaje concreto",
+      "Seguimiento del viaje en vivo por GPS, con app móvil en React Native (Expo)",
+      "81 tests con pytest y CI en GitHub Actions con Semgrep en cada push"
     ],
     image: routeevImg,
-    // El repo de RouteEV todavía es privado: apunta al perfil hasta que se publique.
+    // Los repos de RouteEV siguen fuera del perfil público: el botón principal va al sitio.
     github: "https://github.com/mqtissj",
-    category: "Full Stack · En desarrollo"
+    liveUrl: "https://routeev.uy",
+    category: "Full Stack · En producción"
+  },
+  {
+    id: 9,
+    title: "PF Negocios Inmobiliarios",
+    emoji: "🏠",
+    shortDescription: "Sitio y panel de gestión para una inmobiliaria de Tacuarembó, en producción en pfinmobiliaria.uy: catálogo con filtros que viven en la URL, carga de propiedades sin tocar código y contacto directo por WhatsApp.",
+    fullDescription: "Primer cliente real, con mantenimiento mensual contratado. No son tres proyectos sino uno solo sobre la misma base de datos: el panel escribe, la web pública lee y el asistente virtual consulta. Está hecho con Next.js 16 (App Router) y TypeScript, Tailwind CSS v4, Supabase para Postgres, Auth y Storage, y deploy en Vercel — sin dependencias de más, porque el criterio es que cada línea se pueda explicar. La regla que ordena todo el diseño es de seguridad: el público nunca lee la tabla de propiedades, lee una view que devuelve el precio en null cuando el dueño eligió no publicarlo y anula dirección y coordenadas cuando la propiedad no las muestra; RLS filtra filas, no columnas, y por eso es una view y no una política. Urbano y rural conviven en el mismo modelo: una casa se describe con dormitorios y metros edificados, un campo con hectáreas, índice CONEAT y acceso a agua.",
+    technologies: ["Next.js 16", "React", "TypeScript", "Tailwind CSS v4", "Supabase (Postgres)", "Supabase Auth + Storage", "Server Components", "Vercel"],
+    features: [
+      "Filtros combinables (operación, dormitorios, baños, comodidades, mascotas) reflejados en la URL: cada búsqueda queda compartible e indexable",
+      "Panel propio: la inmobiliaria publica, edita y sube fotos sin tocar código ni pedirme nada",
+      "El público lee una view, no la tabla: precio en null si no es público, dirección y coordenadas anuladas si no se muestran",
+      "Row Level Security en todas las tablas; los leads solo se escriben desde el servidor, nunca desde el navegador",
+      "Propiedades urbanas y rurales en el mismo esquema (dormitorios y m² edificados, o hectáreas e índice CONEAT)",
+      "Ficha por propiedad con metadatos Open Graph generados en el servidor y contacto por WhatsApp con el mensaje ya armado",
+      "Asistente virtual con tool calling sobre la base, en desarrollo: no afirma un precio que no haya devuelto una consulta"
+    ],
+    image: pfImg,
+    liveUrl: "https://pfinmobiliaria.uy",
+    category: "Full Stack · Cliente real"
   },
   {
     id: 1,

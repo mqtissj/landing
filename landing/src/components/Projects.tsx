@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import { ExternalLink, Github, X, ArrowUpRight } from "lucide-react";
+import { ExternalLink, Github, Globe, X, ArrowUpRight } from "lucide-react";
 import { projects, Project, personalInfo } from "@/data/projects";
 import { BeamCta } from "@/components/ui/border-beam";
 import { ShineSweep } from "@/components/ui/shine-sweep";
@@ -85,7 +85,7 @@ const ProjectRow = React.memo(({
           <div className="relative aspect-[16/10] overflow-hidden border-2 border-foreground bg-secondary">
             <img
               src={project.image}
-              alt={`Captura de pantalla del proyecto ${project.title}`}
+              alt={`Portada del proyecto ${project.title}`}
               loading="eager"
               decoding="async"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
@@ -145,7 +145,7 @@ const ProjectRow = React.memo(({
         <div className="relative aspect-[4/3] overflow-hidden border-2 border-foreground bg-secondary">
           <img
             src={project.image}
-            alt={`Captura de pantalla del proyecto ${project.title}`}
+            alt={`Portada del proyecto ${project.title}`}
             loading="lazy"
             decoding="async"
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
@@ -201,7 +201,7 @@ const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => v
       </button>
 
       <div className="aspect-[16/9] overflow-hidden border-b-2 border-foreground bg-secondary">
-        <img src={project.image} alt={`Captura de pantalla del proyecto ${project.title}`} decoding="async" className="w-full h-full object-cover" />
+        <img src={project.image} alt={`Portada del proyecto ${project.title}`} decoding="async" className="w-full h-full object-cover" />
       </div>
 
       <div className="p-8 sm:p-12">
@@ -244,15 +244,30 @@ const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => v
           </div>
         </div>
 
-        <a
-          href={project.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-6 py-3 bg-foreground text-background text-xs uppercase tracking-[0.2em] hover:bg-foreground/85 transition"
-        >
-          <Github className="w-4 h-4" /> Ver en GitHub
-          <ArrowUpRight size={14} />
-        </a>
+        <div className="flex flex-wrap gap-3">
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-pop-cobalt text-background text-xs uppercase tracking-[0.2em] hover:bg-pop-cobalt/85 transition"
+            >
+              <Globe className="w-4 h-4" /> Visitar {project.liveUrl.replace("https://", "")}
+              <ArrowUpRight size={14} />
+            </a>
+          )}
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-foreground text-background text-xs uppercase tracking-[0.2em] hover:bg-foreground/85 transition"
+            >
+              <Github className="w-4 h-4" /> Ver en GitHub
+              <ArrowUpRight size={14} />
+            </a>
+          )}
+        </div>
       </div>
     </motion.div>
   </motion.div>
