@@ -1,12 +1,12 @@
 import trackeadorImg from "@/assets/projects/trackeador-objetivos.jpg";
 import alimentosImg from "@/assets/projects/manejo-alimentos.jpg";
 import atletasImg from "@/assets/projects/gestion-atletas.jpg";
-import egaImg from "@/assets/projects/ega-web.jpg";
 import librosImg from "@/assets/projects/alquiler-libros.jpg";
 import peajesImg from "@/assets/projects/sistema-peajes.jpg";
 import malapataImg from "@/assets/projects/malapata.svg";
 import routeevImg from "@/assets/projects/routeev.png";
 import pfInmobiliariaImg from "@/assets/projects/pf-inmobiliaria.jpg";
+import realidadImg from "@/assets/projects/realidad-uy.png";
 
 export interface Project {
   id: number;
@@ -22,6 +22,9 @@ export interface Project {
   // modal points at the real, working thing rather than nothing.
   github?: string;
   liveUrl?: string;
+  // Los destacados abren la sección con una fila ancha propia, en el orden
+  // en que aparecen acá; el resto entra en la grilla.
+  featured?: boolean;
   category: string;
 }
 
@@ -46,7 +49,29 @@ export const projects: Project[] = [
     // Los repos de RouteEV siguen fuera del perfil público: el botón principal va al sitio.
     github: "https://github.com/mqtissj",
     liveUrl: "https://routeev.uy",
+    featured: true,
     category: "Full Stack · En producción"
+  },
+  {
+    id: 10,
+    title: "realidad.uy",
+    emoji: "🇺🇾",
+    shortDescription: "Plataforma ciudadana que convierte los datos públicos de Uruguay en mapas, indicadores y comparaciones por territorio, con la fuente y la metodología de cada cifra a la vista. En producción en realidad.uy.",
+    fullDescription: "Proyecto propio, en producción en realidad.uy. Los datos que importan del país están publicados, pero dispersos en boletines del INE, del BCU, del MTSS y de la Corte Electoral; acá quedan explorables: 21 indicadores (desempleo, inflación, pobreza, PIB per cápita, homicidios, informalidad, educación, esperanza de vida…) con ficha propia y serie histórica, mapa coroplético del país, comparador de hasta tres territorios y los resultados electorales de 2024 y 2025. Es Next.js 15 con App Router y todo estático — 41 páginas generadas en el build, sin backend: los datos viven tipados en el repo y cada observación arrastra su fuente, su período, su unidad, su estado y la URL del boletín original. El mapa es SVG con d3-geo, navegable por teclado, y cada gráfico tiene su \"Ver datos\", porque el color no puede ser el único canal que comunica. Una tarea programada en GitHub Actions revisa el día 5 de cada mes si hay datos nuevos, valida integridad, sumas y outliers, y commitea — lo que dispara el redeploy solo. Dos reglas no negociables: neutralidad política, y nunca inventar un dato; lo que no existe se declara como faltante en vez de estimarse.",
+    technologies: ["Next.js 15", "TypeScript", "Tailwind CSS v4", "d3-geo", "Recharts", "SSG", "GitHub Actions", "Vercel"],
+    features: [
+      "21 indicadores del INE, BCU, MTSS y Corte Electoral, cada uno con ficha, serie histórica y metodología",
+      "Mapa coroplético en SVG con d3-geo, navegable por teclado y con \"Ver datos\" en cada gráfico",
+      "Provenance por observación: fuente, período, unidad, estado y URL del boletín original",
+      "19 departamentos y 136 municipios en el modelo territorial; donde no hay dato público, se dice que no lo hay",
+      "Comparador de hasta tres territorios y resultados electorales de 2024 y 2025",
+      "41 páginas estáticas sin backend, con embeds de mapa y ranking para citar los datos desde otro sitio",
+      "Ingesta mensual automática (GitHub Actions, día 5) con validación de integridad, sumas y outliers"
+    ],
+    image: realidadImg,
+    liveUrl: "https://realidad.uy",
+    featured: true,
+    category: "Datos abiertos · En producción"
   },
   {
     id: 9,
@@ -122,25 +147,6 @@ export const projects: Project[] = [
     image: atletasImg,
     github: "https://github.com/mqtissj/gestionDeAtletas",
     category: "Full Stack"
-  },
-  {
-    id: 4,
-    title: "EGA Web",
-    emoji: "🚌",
-    shortDescription: "Sitio web corporativo para empresa de transporte con diseño moderno.",
-    fullDescription: "Página web profesional desarrollada para EGA (Empresa General Artigas), compañía de transporte de pasajeros. Incluye información de servicios, horarios, destinos y contacto. Diseño responsive y optimizado para SEO.",
-    technologies: ["HTML5", "CSS3", "JavaScript", "Responsive Design"],
-    features: [
-      "Diseño corporativo profesional",
-      "Información de servicios y destinos",
-      "Consulta de horarios",
-      "Formulario de contacto",
-      "100% responsive",
-      "Optimización SEO"
-    ],
-    image: egaImg,
-    github: "https://github.com/mqtissj/paginaEGA",
-    category: "Frontend"
   },
   {
     id: 5,

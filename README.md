@@ -8,6 +8,8 @@ Soy estudiante de Analista en TI en ORT (Montevideo) y acá vive el código de m
 
 Lo que más tiempo me está llevando ahora es **RouteEV** ([routeev.uy](https://routeev.uy)), un planificador de rutas para autos eléctricos sobre el grafo vial real de Uruguay: 63.833 intersecciones y 97.293 tramos de OpenStreetMap, y las 259 estaciones de carga del país (211 de UTE Movilidad más 48 privadas) para insertar paradas cuando la batería no llega. Ya está en producción en beta pública — web, API y app móvil —, y en la página hay capturas y el detalle de cómo funciona.
 
+El otro proyecto propio es **realidad.uy** ([realidad.uy](https://realidad.uy)): 21 indicadores del INE, del BCU, del MTSS y de la Corte Electoral convertidos en mapas, fichas y comparaciones por territorio, con la fuente y la metodología de cada cifra a la vista. Next.js estático, sin backend, y una tarea de GitHub Actions que el día 5 de cada mes busca datos nuevos, los valida y los commitea.
+
 Aparte de lo académico, cada tanto trabajo con clientes haciendo sistemas a medida — páginas, sistemas de gestión, ese tipo de cosas. El último es **PF Negocios Inmobiliarios** ([pfinmobiliaria.uy](https://pfinmobiliaria.uy)), la web y el panel de una inmobiliaria de Tacuarembó: está en producción y con mantenimiento mensual. Si te interesa algo así, escribime: los datos de contacto están en la página, o directo por [LinkedIn](https://www.linkedin.com/in/matiszn/).
 
 ## Cómo está hecho

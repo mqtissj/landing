@@ -102,7 +102,7 @@ const ProjectRow = React.memo(({
           <div>
             <div className="mb-4">
               <span className={`font-mono text-[10px] uppercase tracking-[0.25em] px-2 py-1 border border-foreground ${accent} ${textOn}`}>
-                ★ Portada · {project.category}
+                ★ Destacado · {project.category}
               </span>
             </div>
             <h3 className="text-display text-5xl sm:text-6xl mb-5 group-hover:italic transition-all duration-500">
@@ -275,7 +275,8 @@ const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => v
 
 export const Projects = () => {
   const [selected, setSelected] = useState<Project | null>(null);
-  const [featured, ...rest] = projects;
+  const featured = projects.filter((p) => p.featured);
+  const rest = projects.filter((p) => !p.featured);
 
   return (
     <section id="proyectos" className="relative py-24 sm:py-32 border-t-2 border-foreground bg-pop-yellow/15">
@@ -287,9 +288,11 @@ export const Projects = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-          <ProjectRow project={featured} index={0} featured onClick={() => setSelected(featured)} />
+          {featured.map((p, i) => (
+            <ProjectRow key={p.id} project={p} index={i} featured onClick={() => setSelected(p)} />
+          ))}
           {rest.map((p, i) => (
-            <ProjectRow key={p.id} project={p} index={i + 1} onClick={() => setSelected(p)} />
+            <ProjectRow key={p.id} project={p} index={featured.length + i} onClick={() => setSelected(p)} />
           ))}
         </div>
 
