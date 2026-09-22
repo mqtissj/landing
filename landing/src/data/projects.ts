@@ -33,17 +33,17 @@ export const projects: Project[] = [
     id: 8,
     title: "RouteEV",
     emoji: "🔋",
-    shortDescription: "Planificador de rutas para autos eléctricos en Uruguay, en producción en routeev.uy: calcula la ruta sobre el grafo vial real del país, verifica la batería tramo a tramo e inserta las paradas de carga que hagan falta. Web, API y app móvil.",
-    fullDescription: "Producto propio en beta pública, en producción en routeev.uy (web en Vercel, API en Railway) y en desarrollo activo. Responde una pregunta que un navegador común no contesta: ¿llego con la carga que tengo, y si no, dónde paro? Rutea con A* sobre el grafo vial real de los 19 departamentos (63.833 intersecciones y 97.293 tramos de OpenStreetMap) llevando la batería dentro del estado de búsqueda, así la parada de carga sale de la propia optimización y no de una lista de estaciones cercanas. El costo de cada ruta se calcula en pesos con el tarifario vigente de UTE (cargo por conexión + energía, AC y DC), con peajes incluidos. Son tres piezas: API en Python/FastAPI con PostgreSQL y SQL explícito, front web en Vite + React 19 + TypeScript con react-leaflet, y app móvil en React Native (Expo) con MapLibre y seguimiento del viaje en segundo plano. Suma showroom público sin cuenta, login por email o Google con JWT, confirmación por mail con Resend, fotos en Cloudinary e identificación de modelos fuera del catálogo con la API de Claude, por nombre o por foto.",
-    technologies: ["Python", "FastAPI", "PostgreSQL", "React 19 + TypeScript", "React Native (Expo)", "Leaflet / MapLibre", "OpenStreetMap", "JWT + Google OAuth", "Claude API", "Vercel + Railway"],
+    shortDescription: "Planificador de rutas para autos eléctricos en Uruguay, en producción en routeev.uy: contesta si llegás con la carga que tenés y, si no, dónde parar. Valhalla pone las calles y un A* propio elige las paradas. Web, API y app móvil.",
+    fullDescription: "Producto propio en beta pública, en producción en routeev.uy (web en Vercel, API y Valhalla en Railway) y en desarrollo activo. Responde una pregunta que un navegador común no contesta: ¿llego con la carga que tengo, y si no, dónde paro? La capa vial pasó a ser Valhalla, que resuelve el camino real por las calles del país, y el A* propio quedó corriendo sobre un grafo chico —origen, destino y las 261 estaciones de carga, armado con una matriz estación a estación precalculada— con la batería adentro del estado de búsqueda. El cambio se midió: la misma ruta que expandía 955.348 estados en 24 segundos ahora expande 3.010 en 325 ms, y la parada de carga sigue saliendo de la propia optimización, no de una lista de estaciones cercanas. Encima de eso hay tres modos de ruta (eficiente, rápido y económico, sin tocar el margen de batería en ninguno), peajes cobrados por geometría contra el tarifario real, radares avisados en el desglose, comercios a pie desde cada parada para aprovechar el rato de carga, y el estado en vivo de la red de UTE más los reportes de la comunidad, que el modo rápido usa para esquivar una estación reportada como rota. Son tres piezas: API en Python/FastAPI con PostgreSQL y SQL explícito, front web en Vite + React 19 + TypeScript, y app móvil en React Native (Expo) con seguimiento en segundo plano, ya preparada para las tiendas. Suma showroom público sin cuenta, login por email o Google con JWT, e identificación de modelos fuera del catálogo con la API de Claude, por nombre o por foto.",
+    technologies: ["Python", "FastAPI", "Valhalla", "PostgreSQL", "React 19 + TypeScript", "React Native (Expo)", "MapLibre + OpenFreeMap", "OpenStreetMap", "JWT + Google OAuth", "Claude API", "Vercel + Railway"],
     features: [
-      "Grafo vial real de los 19 departamentos: 63.833 intersecciones y 97.293 tramos de OpenStreetMap",
-      "A* con la batería en el estado de búsqueda: la parada de carga es parte de la ruta óptima, no un paso posterior",
-      "259 estaciones de carga reales: 211 de la red pública de UTE Movilidad y 48 de operadores privados",
-      "Costo del viaje en pesos con el pliego vigente de UTE (conexión + energía, AC y DC) y peajes",
-      "Showroom público sin cuenta: 631 modelos con autonomía real, costos y simulación de un viaje concreto",
-      "Seguimiento del viaje en vivo por GPS, con app móvil en React Native (Expo)",
-      "81 tests con pytest y CI en GitHub Actions con Semgrep en cada push"
+      "Dos capas: Valhalla resuelve las calles y un A* propio elige las paradas sobre un grafo de 262 nodos (origen, destino y las estaciones)",
+      "317× menos estados expandidos que con el grafo vial completo: la misma ruta pasó de 24 s a 325 ms",
+      "261 estaciones reales (213 de UTE Movilidad y 48 privadas), con estado en vivo del feed de UTE y reportes de la comunidad",
+      "Tres modos de ruta —eficiente, rápido y económico— que nunca tocan el margen de batería pedido",
+      "Peajes cobrados por geometría con el tarifario real, 253 radares avisados y comercios a pie desde cada parada",
+      "Showroom público sin cuenta: 585 modelos con autonomía real, costos en pesos y simulación de un viaje concreto",
+      "Más de 500 tests con pytest y CI en GitHub Actions con Semgrep en cada push"
     ],
     image: routeevImg,
     // Los repos de RouteEV siguen fuera del perfil público: el botón principal va al sitio.
