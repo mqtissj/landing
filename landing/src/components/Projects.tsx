@@ -212,7 +212,7 @@ const ProjectModal = ({ project, onClose }: { project: Project; onClose: () => v
         </div>
         <h2 className="text-display text-5xl sm:text-6xl mb-8">{project.title}</h2>
 
-        <p className="font-serif text-2xl leading-snug mb-10 text-foreground/85 border-l-2 border-foreground pl-6">
+        <p className="font-serif text-2xl leading-snug mb-10 text-foreground/85 border-l-2 border-foreground pl-6 whitespace-pre-line">
           {project.fullDescription}
         </p>
 

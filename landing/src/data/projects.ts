@@ -4,7 +4,7 @@ import atletasImg from "@/assets/projects/gestion-atletas.jpg";
 import librosImg from "@/assets/projects/alquiler-libros.jpg";
 import peajesImg from "@/assets/projects/sistema-peajes.jpg";
 import malapataImg from "@/assets/projects/malapata.svg";
-import routeevImg from "@/assets/projects/routeev.png";
+import routeevImg from "@/assets/projects/routeev.jpg";
 import pfInmobiliariaImg from "@/assets/projects/pf-inmobiliaria.jpg";
 import realidadImg from "@/assets/projects/realidad-uy.png";
 
@@ -33,17 +33,18 @@ export const projects: Project[] = [
     id: 8,
     title: "RouteEV",
     emoji: "🔋",
-    shortDescription: "Planificador de rutas para autos eléctricos en Uruguay, en producción en routeev.uy: contesta si llegás con la carga que tenés y, si no, dónde parar. Valhalla pone las calles y un A* propio elige las paradas. Web, API y app móvil.",
-    fullDescription: "Producto propio en beta pública, en producción en routeev.uy (web en Vercel, API y Valhalla en Railway) y en desarrollo activo. Responde una pregunta que un navegador común no contesta: ¿llego con la carga que tengo, y si no, dónde paro? La capa vial pasó a ser Valhalla, que resuelve el camino real por las calles del país, y el A* propio quedó corriendo sobre un grafo chico —origen, destino y las 261 estaciones de carga, armado con una matriz estación a estación precalculada— con la batería adentro del estado de búsqueda. El cambio se midió: la misma ruta que expandía 955.348 estados en 24 segundos ahora expande 3.010 en 325 ms, y la parada de carga sigue saliendo de la propia optimización, no de una lista de estaciones cercanas. Encima de eso hay tres modos de ruta (eficiente, rápido y económico, sin tocar el margen de batería en ninguno), peajes cobrados por geometría contra el tarifario real, radares avisados en el desglose, comercios a pie desde cada parada para aprovechar el rato de carga, y el estado en vivo de la red de UTE más los reportes de la comunidad, que el modo rápido usa para esquivar una estación reportada como rota. Son tres piezas: API en Python/FastAPI con PostgreSQL y SQL explícito, front web en Vite + React 19 + TypeScript, y app móvil en React Native (Expo) con seguimiento en segundo plano, ya preparada para las tiendas. Suma showroom público sin cuenta, login por email o Google con JWT, e identificación de modelos fuera del catálogo con la API de Claude, por nombre o por foto.",
-    technologies: ["Python", "FastAPI", "Valhalla", "PostgreSQL", "React 19 + TypeScript", "React Native (Expo)", "MapLibre + OpenFreeMap", "OpenStreetMap", "JWT + Google OAuth", "Claude API", "Vercel + Railway"],
+    shortDescription: "El problema del auto eléctrico no es el auto: es no saber si llegás. RouteEV mete la batería adentro del cálculo de la ruta y contesta si llegás y dónde parar a cargar. Web en routeev.uy y app en las dos tiendas.",
+    fullDescription: "El problema. Un navegador común contesta cuál es el camino más rápido. El que maneja un auto eléctrico necesita otra respuesta: ¿llego con la carga que tengo y, si no, dónde paro? La autonomía del folleto no es la real, y las estaciones del país no son todas iguales: cambia el conector, la potencia y el precio.\n\nLa solución. Meter la batería adentro de la búsqueda, en vez de calcular la ruta y buscar cargadores después. Valhalla resuelve el camino por las calles reales y un A* propio elige las paradas entre las 261 estaciones del país: cargar deja de ser un parche y pasa a ser parte de la ruta óptima. Arriba de eso, lo que termina de decidir un viaje — costo en pesos con el tarifario de UTE, peajes, radares y el estado en vivo de cada cargador. Son tres piezas: API en Python/FastAPI, web en React y app en React Native, publicada en App Store y Google Play.",
+    technologies: ["Python", "FastAPI", "Valhalla", "PostgreSQL", "React 19 + TypeScript", "React Native (Expo)", "MapLibre + OpenFreeMap", "Docker Compose", "JWT + Apple/Google", "Claude API", "Oracle Cloud + Vercel"],
     features: [
-      "Dos capas: Valhalla resuelve las calles y un A* propio elige las paradas sobre un grafo de 262 nodos (origen, destino y las estaciones)",
-      "317× menos estados expandidos que con el grafo vial completo: la misma ruta pasó de 24 s a 325 ms",
-      "261 estaciones reales (213 de UTE Movilidad y 48 privadas), con estado en vivo del feed de UTE y reportes de la comunidad",
+      "App publicada en App Store y Google Play, con el front rediseñado sobre un sistema de diseño propio",
+      "Dos capas: Valhalla resuelve las calles y un A* propio elige las paradas sobre un grafo de 262 nodos",
+      "Dos optimizaciones medidas: 317× menos estados al pasar a Valhalla, y de 5,8 s a 0,9 s con la poda por dominancia",
+      "261 estaciones reales (213 de UTE Movilidad y 48 privadas), con estado en vivo y reportes de la comunidad",
       "Tres modos de ruta —eficiente, rápido y económico— que nunca tocan el margen de batería pedido",
       "Peajes cobrados por geometría con el tarifario real, 253 radares avisados y comercios a pie desde cada parada",
-      "Showroom público sin cuenta: 585 modelos con autonomía real, costos en pesos y simulación de un viaje concreto",
-      "Más de 500 tests con pytest y CI en GitHub Actions con Semgrep en cada push"
+      "Showroom público sin cuenta: 587 modelos con autonomía real, costos en pesos y simulación de un viaje concreto",
+      "Más de 550 tests con pytest y CI en GitHub Actions con Semgrep en cada push"
     ],
     image: routeevImg,
     // Los repos de RouteEV siguen fuera del perfil público: el botón principal va al sitio.
@@ -56,16 +57,17 @@ export const projects: Project[] = [
     id: 10,
     title: "realidad.uy",
     emoji: "🇺🇾",
-    shortDescription: "Plataforma ciudadana que convierte los datos públicos de Uruguay en mapas, indicadores y comparaciones por territorio, con la fuente y la metodología de cada cifra a la vista. En producción en realidad.uy.",
-    fullDescription: "Proyecto propio, en producción en realidad.uy. Los datos que importan del país están publicados, pero dispersos en boletines del INE, del BCU, del MTSS y de la Corte Electoral; acá quedan explorables: 21 indicadores (desempleo, inflación, pobreza, PIB per cápita, homicidios, informalidad, educación, esperanza de vida…) con ficha propia y serie histórica, mapa coroplético del país, comparador de hasta tres territorios y los resultados electorales de 2024 y 2025. Es Next.js 15 con App Router y todo estático — 41 páginas generadas en el build, sin backend: los datos viven tipados en el repo y cada observación arrastra su fuente, su período, su unidad, su estado y la URL del boletín original. El mapa es SVG con d3-geo, navegable por teclado, y cada gráfico tiene su \"Ver datos\", porque el color no puede ser el único canal que comunica. Una tarea programada en GitHub Actions revisa el día 5 de cada mes si hay datos nuevos, valida integridad, sumas y outliers, y commitea — lo que dispara el redeploy solo. Dos reglas no negociables: neutralidad política, y nunca inventar un dato; lo que no existe se declara como faltante en vez de estimarse.",
+    shortDescription: "Los datos públicos del país están publicados, pero desparramados en boletines PDF. realidad.uy los junta en mapas, fichas y comparaciones por territorio, con la fuente y la metodología de cada cifra a la vista.",
+    fullDescription: "El problema. Los datos del país son públicos, pero no están disponibles: el desempleo sale en un informe del INE, el PIB en un cuadro del BCU, las elecciones en la Corte Electoral, cada uno en su PDF y con su formato. Para saber cómo le va a tu departamento hay que cazar un boletín por indicador, y lo que circula en redes son cifras sin fuente.\n\nLa solución. Una sola plataforma donde esos datos quedan explorables por territorio y cada cifra dice de dónde sale: fuente, período, unidad, link al boletín original y el conjunto del Catálogo Nacional de Datos Abiertos. Sin backend — las observaciones viven tipadas en el repo y una tarea mensual las actualiza, valida y despliega sola. Y la regla que ordena todo lo demás: nunca inventar un dato; lo que no existe se declara faltante en vez de estimarse.",
     technologies: ["Next.js 15", "TypeScript", "Tailwind CSS v4", "d3-geo", "Recharts", "SSG", "GitHub Actions", "Vercel"],
     features: [
-      "21 indicadores del INE, BCU, MTSS y Corte Electoral, cada uno con ficha, serie histórica y metodología",
+      "22 indicadores del INE, BCU, MTSS y Corte Electoral, cada uno con ficha, serie histórica y metodología",
+      "Cada cifra comparada contra el período anterior: interanual por mes, trimestre, semestre o año",
       "Mapa coroplético en SVG con d3-geo, navegable por teclado y con \"Ver datos\" en cada gráfico",
-      "Provenance por observación: fuente, período, unidad, estado y URL del boletín original",
+      "Provenance por observación: fuente, período, unidad, estado, URL del boletín y conjunto del Catálogo Nacional de Datos Abiertos",
       "19 departamentos y 136 municipios en el modelo territorial; donde no hay dato público, se dice que no lo hay",
-      "Comparador de hasta tres territorios y resultados electorales de 2024 y 2025",
-      "41 páginas estáticas sin backend, con embeds de mapa y ranking para citar los datos desde otro sitio",
+      "Comparador de hasta tres territorios, con vista general de todos los indicadores lado a lado",
+      "1.396 observaciones en 41 páginas estáticas sin backend, con embeds de mapa y ranking para citar los datos",
       "Ingesta mensual automática (GitHub Actions, día 5) con validación de integridad, sumas y outliers"
     ],
     image: realidadImg,
